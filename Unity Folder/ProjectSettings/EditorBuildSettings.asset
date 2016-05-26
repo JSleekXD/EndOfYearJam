@@ -11,3 +11,5 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
   - enabled: 1
     path: Assets/Scenes/Joe's Scene.unity
+  - enabled: 1
+    path: Assets/Scenes/Julian's Scene.unity
