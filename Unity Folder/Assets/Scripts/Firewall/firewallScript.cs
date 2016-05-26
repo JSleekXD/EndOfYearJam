@@ -9,7 +9,7 @@ public class firewallScript : MonoBehaviour
     // Use this for initialization
     void Awake () 
     {
-        projectile = GameObject.FindGameObjectWithTag("Projectile");     
+        projectile = GameObject.FindGameObjectWithTag("PROJECTILE");     
         gameObject.SetActive(true);
     }
     
@@ -19,7 +19,7 @@ public class firewallScript : MonoBehaviour
         
     }
     
-    void OnCollisionEnter(Collision other)
+    void OnCollisionEnter2D(Collision other)
     {
         if (other.gameObject == projectile)
         {
