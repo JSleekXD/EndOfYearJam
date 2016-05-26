@@ -15,7 +15,8 @@ public class Projectile : MonoBehaviour {
 		countdown += Time.deltaTime;
 
 		if (countdown >= countdownThreshold) {
-			Destroy (gameObject);
+			RemoveSelfFromList();
+			//Destroy (gameObject);
 		}
 	}
 
@@ -26,32 +27,29 @@ public class Projectile : MonoBehaviour {
 //			Destroy (gameObject);
 //		}
 //	}
+
+	public void RemoveSelfFromList(){
+		GameObject[] players = GameObject.FindGameObjectsWithTag("PLAYER");
+		for(int i = 0; i < players.Length; i++){
+			if(players[i].GetComponent<PlayerFiring>().playerID == projectileID){
+				
+				players[i].GetComponent<PlayerFiring>().RemoveProjectilefromList();
+				Destroy (gameObject);
+				return;
+			}
+		}
+	}
 	void OnTriggerEnter2D(Collider2D collider){
 		if (collider.gameObject.tag == "PROJECTILE") {
 			if(collider.gameObject.GetComponent<Projectile>().projectileID == projectileID)
 			{}else{
-				GameObject[] players = GameObject.FindGameObjectsWithTag("PLAYER");
-				for(int i = 0; i < players.Length; i++){
-					if(players[i].GetComponent<PlayerFiring>().playerID == projectileID){
-						
-						players[i].GetComponent<PlayerFiring>().RemoveProjectilefromList();
-						Destroy (gameObject);
-						return;
-					}
-				}
+				RemoveSelfFromList();
+//				
 			}
 
 		} else if (collider.gameObject.tag == "PLAYER") {
-
-			GameObject[] players = GameObject.FindGameObjectsWithTag("PLAYER");
-			for(int i = 0; i < players.Length; i++){
-				if(players[i].GetComponent<PlayerFiring>().playerID == projectileID){
-
-						players[i].GetComponent<PlayerFiring>().RemoveProjectilefromList();
-						Destroy (gameObject);
-						return;
-				}		
-		}
+			RemoveSelfFromList();
+//			
 	  }
 }
 }
