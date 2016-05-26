@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : MonoBehaviour 
+{
 
 	public float countdown = 0f;
 	public float countdownThreshold = 3f;
 	public int projectileID;
-	void Start () {
 
+	private PlayerFiring playerFiringScript;
+	private GameObject player;
+
+
+	void Start () 
+	{
+		player = GameObject.FindGameObjectWithTag (TAGS.PLAYER);
+		playerFiringScript = player.GetComponent<PlayerFiring> ();
 	}
 	
 	// Update is called once per frame
@@ -39,17 +47,30 @@ public class Projectile : MonoBehaviour {
 			}
 		}
 	}
-	void OnTriggerEnter2D(Collider2D collider){
-		if (collider.gameObject.tag == "PROJECTILE") {
-			if(collider.gameObject.GetComponent<Projectile>().projectileID == projectileID)
-			{}else{
-				RemoveSelfFromList();
-//				
-			}
 
-		} else if (collider.gameObject.tag == "PLAYER") {
+
+	void OnTriggerEnter2D(Collider2D collider)
+	{
+		if (collider.gameObject.tag == "PROJECTILE") 
+		{
+			if(collider.gameObject.GetComponent<Projectile>().projectileID == projectileID)
+			{
+
+			}
+			else
+			{
+				RemoveSelfFromList();
+			}
+		} 
+		else if (collider.gameObject.tag == "PLAYER") 
+		{
 			RemoveSelfFromList();
-//			
-	  }
-}
+		}
+		// IF IT HITS THE FIREWALL
+		else if(collider.gameObject.tag == "FIREWALL")
+		{
+			// REVERSE PROJECTILE DIRECTION
+			playerFiringScript.ReverseDirection(this.gameObject);
+		}
+	}
 }

@@ -9,8 +9,11 @@ public class PlayerFiring : MonoBehaviour {
     public GameObject projectile;
 	public int maxProjectiles = 3;
 	public int speed = 500;
+	public int reverseSpeed = -200;
 	public int playerID = 0;
 	public List<GameObject> projectileList = new List<GameObject>();
+
+
 	void Start () {
 	
 	}
@@ -43,7 +46,6 @@ public class PlayerFiring : MonoBehaviour {
 			projectileList.Add (projectileClone);
 			projectileClone.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (-1, 0) * speed);
 		}
-
 	}
 
 	public void RemoveProjectilefromList(){
@@ -51,5 +53,10 @@ public class PlayerFiring : MonoBehaviour {
 	}
 
 
-
+	// IF THE PROJECTILE HITS A FIRE WALL. REVERSE DIRECTION
+	public void ReverseDirection(GameObject projectileClone)
+	{
+		Debug.Log (projectileClone);
+		projectileClone.GetComponent<Rigidbody2D> ().velocity *= (float)-0.2; //(new Vector2 (1, 0) * reverseSpeed);
+	}
 }
