@@ -7,7 +7,8 @@ TagManager:
   - PLAYER
   - PROJECTILE
   - DESK
-  - FIREWALL
+  - FIREWALL_00
+  - FIREWALL_01
   layers:
   - Default
   - TransparentFX

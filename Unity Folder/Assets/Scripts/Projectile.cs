@@ -8,16 +8,7 @@ public class Projectile : MonoBehaviour
 	public float countdownThreshold = 3f;
 	public int projectileID;
 
-	private PlayerFiring playerFiringScript;
-	private GameObject player;
 
-
-	void Start () 
-	{
-		player = GameObject.FindGameObjectWithTag (TAGS.PLAYER);
-		playerFiringScript = player.GetComponent<PlayerFiring> ();
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		countdown += Time.deltaTime;
@@ -65,12 +56,6 @@ public class Projectile : MonoBehaviour
 		else if (collider.gameObject.tag == "PLAYER") 
 		{
 			RemoveSelfFromList();
-		}
-		// IF IT HITS THE FIREWALL
-		else if(collider.gameObject.tag == "FIREWALL")
-		{
-			// REVERSE PROJECTILE DIRECTION
-			playerFiringScript.ReverseDirection(this.gameObject);
 		}
 	}
 }

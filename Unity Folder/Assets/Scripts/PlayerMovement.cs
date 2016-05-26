@@ -54,4 +54,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         player.position = new Vector3(player.position.x, player.position.y + amount, 0);
     }
+
+
+	public int GetPositionID()
+	{
+		return playerID;
+	}
 }
