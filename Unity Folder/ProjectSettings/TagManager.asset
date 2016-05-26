@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - DESK
+  - Projectile
+  - Firewal
   layers:
   - Default
   - TransparentFX
