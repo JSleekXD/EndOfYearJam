@@ -98,6 +98,7 @@ GameObject:
   - 212: {fileID: 380513387}
   - 114: {fileID: 380513389}
   - 58: {fileID: 380513390}
+  - 114: {fileID: 380513391}
   m_Layer: 0
   m_Name: Player
   m_TagString: PLAYER
@@ -172,6 +173,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .100000001
+--- !u!114 &380513391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 380513386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662401d60c8ab4541a76108c6d51ba73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  deskArray: []
 --- !u!1 &1310709036
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +197,7 @@ GameObject:
   - 212: {fileID: 1310709039}
   - 114: {fileID: 1310709038}
   - 58: {fileID: 1310709037}
+  - 114: {fileID: 1310709041}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: PLAYER
@@ -257,6 +272,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!114 &1310709041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1310709036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 662401d60c8ab4541a76108c6d51ba73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  deskArray: []
 --- !u!1 &1692133052
 GameObject:
   m_ObjectHideFlags: 0
