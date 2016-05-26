@@ -29,7 +29,17 @@ public class Projectile : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider){
 		if (collider.gameObject.tag == "PROJECTILE") {
 			if(collider.gameObject.GetComponent<Projectile>().projectileID == projectileID)
-			{}else{Destroy(gameObject);}
+			{}else{
+				GameObject[] players = GameObject.FindGameObjectsWithTag("PLAYER");
+				for(int i = 0; i < players.Length; i++){
+					if(players[i].GetComponent<PlayerFiring>().playerID == projectileID){
+						
+						players[i].GetComponent<PlayerFiring>().RemoveProjectilefromList();
+						Destroy (gameObject);
+						return;
+					}
+				}
+			}
 
 		} else if (collider.gameObject.tag == "PLAYER") {
 
