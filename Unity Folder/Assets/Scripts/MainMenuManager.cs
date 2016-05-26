@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ButtonManager : MonoBehaviour 
+public class MainMenuManager : MonoBehaviour 
 {
 	public void PlayButton()
     {
