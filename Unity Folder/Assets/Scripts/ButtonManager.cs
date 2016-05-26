@@ -7,4 +7,9 @@ public class ButtonManager : MonoBehaviour
     {
         Application.LoadLevel("Joe's Scene");
     }
+
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
 }
