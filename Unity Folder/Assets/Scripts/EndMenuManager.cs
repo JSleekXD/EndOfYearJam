@@ -5,11 +5,11 @@ public class EndMenuManager : MonoBehaviour
 {
 	public void RestartButton()
     {
-        Application.LoadLevel("Joe's Scene");
+        Application.LoadLevel("Julian's Scene");
     }
 
-    public void QuitButton()
+    public void MainMenuButton()
     {
-        Application.Quit();
+        Application.LoadLevel("MainMenu");
     }
 }

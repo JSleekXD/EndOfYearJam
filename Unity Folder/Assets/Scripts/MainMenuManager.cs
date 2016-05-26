@@ -5,7 +5,7 @@ public class MainMenuManager : MonoBehaviour
 {
 	public void PlayButton()
     {
-        Application.LoadLevel("Joe's Scene");
+        Application.LoadLevel("Julian's Scene");
     }
 
     public void QuitButton()
