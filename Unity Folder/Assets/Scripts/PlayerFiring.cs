@@ -9,7 +9,6 @@ public class PlayerFiring : MonoBehaviour {
     public GameObject projectile;
 	public int maxProjectiles = 3;
 	public int speed = 500;
-	public int reverseSpeed = -200;
 	private int playerID;
 	public List<GameObject> projectileList = new List<GameObject>();
 
