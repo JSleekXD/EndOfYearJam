@@ -47,7 +47,7 @@ public class SceneManager : MonoBehaviour
             GameObject newDefenseTrigger = Instantiate(defenseTriggerRef);
             newDefenseTrigger.name = "Player" + i + "Defense";
             
-            float offset = (deskLength / 2) + 1f;
+            float offset = -((deskLength / 2) + 1f);
             if (i == 1) offset = -offset;
             newDefenseTrigger.transform.position = new Vector2(offset, 0);
             

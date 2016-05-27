@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8203b8b869b6274ba36d528b4d6a8de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredDesks: 4
+  desiredDesks: 11
   desks: []
   deskRef: {fileID: 151412, guid: 21763aa64950a4e4f9bdc14a0409063c, type: 2}
   defenseTriggerRef: {fileID: 130630, guid: 5bc831388f492634b8b6f81017b13bf4, type: 2}
