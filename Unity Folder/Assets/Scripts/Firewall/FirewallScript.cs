@@ -5,36 +5,22 @@ using System.Collections.Generic;
 
 public class FirewallScript : MonoBehaviour 
 {
-	public int firewallID;
-	public List<GameObject> firewallList = new List<GameObject> ();
-
-	private GameObject firewall;
-	private PlayerProperties playerProperties;
+	public GameObject fireWalls;
 	private PlayerMovement playerMovement;
-
-	void Awake()
-	{
-		playerProperties = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerProperties> ();
-		firewall = GameObject.FindGameObjectWithTag (TAGS.FIRE_WALL);
-	}
-
+	public int numOfFirewalls;
 
 	void Start()
 	{
-		firewallID = playerProperties.playerID;
+		playerMovement = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerMovement> ();
+		numOfFirewalls = playerMovement.deskArray.Length * 4;
 	}
 
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space) && firewallID == 0)
+		for(int i = 0; i < numOfFirewalls; i++)
 		{
 
-		}
-
-		if(Input.GetKeyDown(KeyCode.Question) && firewallID == 1)
-		{
-			
 		}
 	}
 }

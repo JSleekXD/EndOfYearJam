@@ -57,8 +57,7 @@ public class Projectile : MonoBehaviour
 		{
 			RemoveSelfFromList();
 		}
-		else if (collider.gameObject.tag == "FIREWALL_01" 
-		         || collider.gameObject.tag == "FIREWALL_00") 
+		else if (collider.gameObject.tag == "FIREWALL") 
 		{
 			RemoveSelfFromList();
 		}

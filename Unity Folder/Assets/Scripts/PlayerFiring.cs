@@ -13,7 +13,8 @@ public class PlayerFiring : MonoBehaviour {
 	public List<GameObject> projectileList = new List<GameObject>();
 
 
-	void Start () {
+	void Start () 
+	{
 		playerID = GetComponent<PlayerProperties> ().playerID;
 	}
 	

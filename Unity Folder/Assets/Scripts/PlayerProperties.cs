@@ -5,6 +5,7 @@ public class PlayerProperties : MonoBehaviour {
 
 	public int playerID;
 	public float playerHealth;
+
 	// Use this for initialization
 	void Start () {
 	

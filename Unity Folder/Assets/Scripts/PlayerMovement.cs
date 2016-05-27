@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
-
-	private int currentLane = 0;
+public class PlayerMovement : MonoBehaviour 
+{
+	public int currentLane = 0;
     private Transform player;
     private int playerID;
     public GameObject[] deskArray;
 
+	public AudioSource audioSource;
+	public AudioClip beep;
+
 	void Start() 
 	{
+		audioSource = GetComponent<AudioSource> ();
 		playerID = GetComponent<PlayerProperties> ().playerID;
         player = GameObject.Find("Player" + playerID).transform;
         deskArray = GameObject.FindGameObjectsWithTag("DESK");
@@ -42,6 +46,9 @@ public class PlayerMovement : MonoBehaviour {
             
             TranslatePlayerY(2f);
             ++currentLane;
+
+			// PLAY AUDIO
+			audioSource.PlayOneShot(beep);
         }
         
         if (Input.GetButtonDown(axis) && Input.GetAxisRaw(axis) < 0f)
@@ -51,6 +58,10 @@ public class PlayerMovement : MonoBehaviour {
             
             TranslatePlayerY(-2f);
             --currentLane;
+
+
+			// PLAY AUDIO
+			audioSource.PlayOneShot(beep);
         }
     }
 
@@ -59,9 +70,4 @@ public class PlayerMovement : MonoBehaviour {
         player.position = new Vector3(player.position.x, player.position.y + amount, 0);
     }
 
-
-	public GameObject[] GetDeskArray()
-	{
-		return deskArray;
-	}
 }
