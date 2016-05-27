@@ -10,6 +10,8 @@ TagManager:
   - FIREWALL_00
   - FIREWALL_01
   - FIREWALL
+  - Projectile
+  - DEFENSE
   layers:
   - Default
   - TransparentFX

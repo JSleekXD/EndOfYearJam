@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerProperties : MonoBehaviour {
+public class PlayerDefense : MonoBehaviour {
 
-	public int playerID;
-	public GameObject playerDefense;
+
+
+	public float defenseHealth;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,8 +16,7 @@ public class PlayerProperties : MonoBehaviour {
 	
 	}
 
-
 	void OnTriggerEnter2D(){
-
+		Debug.Log ("HELLO");	
 	}
 }
