@@ -59,12 +59,4 @@ public class PlayerFiring : MonoBehaviour {
 	{
 		projectileList.RemoveAt (0);
 	}
-
-
-	// IF THE PROJECTILE HITS A FIRE WALL. REVERSE DIRECTION
-	public void ReverseDirection(GameObject projectileClone)
-	{
-		Debug.Log (projectileClone);
-		projectileClone.GetComponent<Rigidbody2D> ().velocity *= (float)-0.2; //(new Vector2 (1, 0) * reverseSpeed);
-	}
 }

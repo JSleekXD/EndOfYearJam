@@ -3,6 +3,23 @@ using System.Collections;
 
 public class FirewallScript : MonoBehaviour 
 {
+
+	void Start()
+	{
+
+	}
+
+	void Update()
+	{
+		// IF FIREWALLS ARE NOT INSTANTIATED
+
+	}
+
+}
+
+
+
+/*
 	private PlayerFiring playerFiringScript;
 	private GameObject player;
 
@@ -33,6 +50,6 @@ public class FirewallScript : MonoBehaviour
 			gameObject.SetActive(false);
 		}
 	}
-}
+	*/
 
 

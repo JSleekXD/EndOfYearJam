@@ -56,13 +56,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 
-	public int GetPlayerID()
+	public GameObject[] GetDeskArray()
 	{
-		return playerID;
-	}
-
-	public int GetLaneID()
-	{
-		return currentLane;
+		return deskArray;
 	}
 }
