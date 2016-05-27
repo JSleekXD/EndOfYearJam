@@ -40,12 +40,15 @@ public class PlayerMovement : MonoBehaviour
 	
 	void Update() 
 	{
-		//if (roundCountdown.GetComponent<RoundCountdown> ().countFinished) {
+		//if (roundCountdown.GetComponent<RoundCountdown> ().countFinished)
+		//{
 			ProcessMovement (playerID);
 			playerDisabled = false;
-		//} else {
-		//	playerDisabled = true;
-		//}
+		//} 
+		//else 
+		//{
+	//		playerDisabled = true;
+	//	}
 	}
 
     public void ProcessMovement(int id)
@@ -83,4 +86,9 @@ public class PlayerMovement : MonoBehaviour
         player.position = new Vector3(player.position.x, player.position.y + amount, 0);
     }
 
+	public int GetCurrentLane(int id)
+	{
+		playerID = id;
+		return currentLane;
+	}
 }
