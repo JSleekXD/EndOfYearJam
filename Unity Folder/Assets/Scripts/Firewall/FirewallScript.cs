@@ -18,12 +18,5 @@ public class FirewallScript : MonoBehaviour
 
 	void Update()
 	{
-		for(int i = 0; i < numOfFirewalls; i++)
-		{
-			if(playerMovement.deskArray.Length / 2)
-			{
-
-			}
-		}
 	}
 }
