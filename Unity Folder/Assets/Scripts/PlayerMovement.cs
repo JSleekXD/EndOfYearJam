@@ -40,12 +40,12 @@ public class PlayerMovement : MonoBehaviour
 	
 	void Update() 
 	{
-		if (roundCountdown.GetComponent<RoundCountdown> ().countFinished) {
+		//if (roundCountdown.GetComponent<RoundCountdown> ().countFinished) {
 			ProcessMovement (playerID);
 			playerDisabled = false;
-		} else {
-			playerDisabled = true;
-		}
+		//} else {
+		//	playerDisabled = true;
+		//}
 	}
 
     public void ProcessMovement(int id)

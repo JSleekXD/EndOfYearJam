@@ -40,6 +40,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b6218c6718ce684f87f50431e4ee5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p1List: []
+  p2List: []
+  firewall: {fileID: 181230, guid: eb1eb2f3219d2a1468f65a2711585094, type: 2}
 --- !u!212 &21250676
 SpriteRenderer:
   m_ObjectHideFlags: 1
