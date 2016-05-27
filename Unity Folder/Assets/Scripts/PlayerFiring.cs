@@ -10,12 +10,12 @@ public class PlayerFiring : MonoBehaviour {
 	public int maxProjectiles = 3;
 	public int speed = 500;
 	public int reverseSpeed = -200;
-	public int playerID = 0;
+	private int playerID;
 	public List<GameObject> projectileList = new List<GameObject>();
 
 
 	void Start () {
-	
+		playerID = GetComponent<PlayerProperties> ().playerID;
 	}
 	
 	// Update is called once per frame

@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
 	public void RemoveSelfFromList(){
 		GameObject[] players = GameObject.FindGameObjectsWithTag("PLAYER");
 		for(int i = 0; i < players.Length; i++){
-			if(players[i].GetComponent<PlayerFiring>().playerID == projectileID){
+			if(players[i].GetComponent<PlayerProperties>().playerID == projectileID){
 				
 				players[i].GetComponent<PlayerFiring>().RemoveProjectilefromList();
 				Destroy (gameObject);

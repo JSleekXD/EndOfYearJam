@@ -5,11 +5,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	private int currentLane = 0;
     private Transform player;
-    public int playerID;
+    private int playerID;
     public GameObject[] deskArray;
 
 	void Start() 
 	{
+		playerID = GetComponent<PlayerProperties> ().playerID;
         player = GameObject.Find("Player" + playerID).transform;
         deskArray = GameObject.FindGameObjectsWithTag("DESK");
 
