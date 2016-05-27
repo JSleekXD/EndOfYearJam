@@ -14,13 +14,13 @@ public class FirewallScript : MonoBehaviour
 
 	void Awake()
 	{
-		playerProperties = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<Player> ();
+		//playerProperties = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<Player> ();
 		firewall = GameObject.FindGameObjectWithTag (TAGS.FIRE_WALL);
 	}
 
 	void Start()
 	{
-		firewallID = GetComponent
+		//firewallID = GetComponent
 	}
 
 	void Update()
