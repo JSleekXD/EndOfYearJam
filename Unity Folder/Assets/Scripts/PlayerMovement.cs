@@ -13,16 +13,14 @@ public class PlayerMovement : MonoBehaviour {
         player = GameObject.Find("Player" + playerID).transform;
         deskArray = GameObject.FindGameObjectsWithTag("DESK");
 
-		if (playerID == 0) {
-			//transform.position = new Vector2 (deskArray [0].transform.position.x - 5, 0);
-			transform.position = new Vector2(0 - deskArray[0].transform.localScale.x/2, deskArray[0].transform.position.y);
+		if (playerID == 0) 
+		{
+			transform.position = new Vector2 (deskArray [0].transform.position.x - 5, 0);
 		}
-		if (playerID == 1){
-			//transform.position = new Vector2 (deskArray [0].transform.position.x + 5, 0);
-			transform.position = new Vector2(0 + deskArray[0].transform.localScale.x/2, deskArray[0].transform.position.y);
-
+		if (playerID == 1)
+		{
+			transform.position = new Vector2 (deskArray [0].transform.position.x + 5, 0);
 		}
-
 	}
 	
 	void Update() 

@@ -8,6 +8,7 @@ public class FirewallScript : MonoBehaviour
 	private GameObject[] firewallArray;
 	private GameObject firewall;
 	private PlayerMovement playerMovement;
+	private int firewallID;
 
 	void Awake()
 	{
@@ -32,10 +33,37 @@ public class FirewallScript : MonoBehaviour
 
 	void LoadFirewalls()
 	{
-		// INSTANTIATE FIRE WALLS
+		// CREATE AMOUNT OF FIRE WALLS
+		for(int i = 0; i < (playerMovement.deskArray.Length * 4); ++i)
+		{
+			// FIRST ROW
+			if(i <= playerMovement.deskArray.Length)
+			{
+				CreateFirewallObj(
+			}
+		}
+	}
+
+	void CreateFirewallObj(int position)
+	{
+		// PLACE FIREWALLS AT POSITION AND GIVE THE FIREWALLS A ID
+		GameObject firewallClone = (GameObject)Instantiate (firewall, new Vector2 (transform.position.x + 2, transform.position.y, transform.position.z), transform.rotation);
+		// SET ID
+		//projectileList.Add (projectileClone);
 	}
 }
 
+
+	/*
+		if (playerID == 0) 
+		{
+			transform.position = new Vector2 (deskArray [0].transform.position.x - 5, 0);
+		}
+		if (playerID == 1)
+		{
+			transform.position = new Vector2 (deskArray [0].transform.position.x + 5, 0);
+		}
+ */
 
 
 /*
