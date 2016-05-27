@@ -143,6 +143,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1625805288}
     m_Modifications:
+    - target: {fileID: 11466324, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -173,7 +177,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -181,7 +185,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -309
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_SizeDelta.x
@@ -237,15 +241,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 134072, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_Name
-      value: MainMenuButton
+      value: RestartButton
       objectReference: {fileID: 0}
     - target: {fileID: 11488558, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_Text
-      value: Main Menu
+      value: Restart
       objectReference: {fileID: 0}
     - target: {fileID: 11488558, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_FontData.m_FontSize
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 11466324, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 11466324, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
@@ -348,8 +360,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1081695}
   - {fileID: 478049903}
+  - {fileID: 1081695}
   - {fileID: 770813891}
   m_Father: {fileID: 30148780}
   m_RootOrder: 0
@@ -619,7 +631,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_AnchoredPosition.x
@@ -627,7 +639,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -308
       objectReference: {fileID: 0}
     - target: {fileID: 22434316, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_SizeDelta.x
@@ -667,17 +679,15 @@ Prefab:
       objectReference: {fileID: 17268692}
     - target: {fileID: 11466324, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: RestartButton
+      value: QuitButton
       objectReference: {fileID: 0}
     - target: {fileID: 134072, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_Name
-      value: RestartButton
+      value: QuitButton
       objectReference: {fileID: 0}
     - target: {fileID: 11488558, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_Text
-      value: 'Restart
-
-'
+      value: Quit
       objectReference: {fileID: 0}
     - target: {fileID: 11488558, guid: eee0ff156f2e05a46b127f2d7f9f4797, type: 2}
       propertyPath: m_FontData.m_FontSize

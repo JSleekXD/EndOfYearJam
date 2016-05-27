@@ -3,9 +3,9 @@ using System.Collections;
 
 public class EndMenuManager : MonoBehaviour 
 {
-	public void RestartButton()
+	public void QuitButton()
     {
-        Application.LoadLevel("Julian's Scene");
+		Application.Quit ();
     }
 
     public void MainMenuButton()
