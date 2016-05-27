@@ -47,8 +47,8 @@ public class PlayerMovement : MonoBehaviour
 		//} 
 		//else 
 		//{
-	//		playerDisabled = true;
-	//	}
+		//	playerDisabled = true;
+		//}
 	}
 
     public void ProcessMovement(int id)

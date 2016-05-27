@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class SceneManager : MonoBehaviour 
 {
     public int desiredDesks = 4;
+	public int p1totalFirewalls;
+	public int p2totalFirewalls;
     public List<GameObject> desks;
     public GameObject deskRef;
     public GameObject defenseTriggerRef;
@@ -15,6 +17,9 @@ public class SceneManager : MonoBehaviour
 
 	void Awake(){
 		DontDestroyOnLoad (transform.gameObject);
+
+		p1totalFirewalls = 0;
+		p2totalFirewalls = 0;
 	}
 
     void Start() 

@@ -8,9 +8,19 @@ public class Projectile : MonoBehaviour
 	public float countdownThreshold = 3f;
 	public int projectileID;
 
+	private BuildFirewall buildFirewall;
+	private SceneManager sceneManagerScript;
+
+
+	void Awake()
+	{
+		sceneManagerScript = GameObject.FindGameObjectWithTag (TAGS.SCENEMANAGER).GetComponent<SceneManager> (); 
+		buildFirewall = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<BuildFirewall> ();
+	}
 
 	// Update is called once per frame
 	void Update () {
+
 		countdown += Time.deltaTime;
 
 		if (countdown >= countdownThreshold) {
@@ -44,22 +54,38 @@ public class Projectile : MonoBehaviour
 	{
 		if (collider.gameObject.tag == "PROJECTILE") 
 		{
-			if(collider.gameObject.GetComponent<Projectile>().projectileID == projectileID)
+			if (collider.gameObject.GetComponent<Projectile> ().projectileID == projectileID) 
 			{
 
-			}
-			else
+			} 
+			else 
 			{
-				RemoveSelfFromList();
+				RemoveSelfFromList ();
 			}
 		} 
 		else if (collider.gameObject.tag == "PLAYER") 
 		{
-			RemoveSelfFromList();
+			RemoveSelfFromList ();
 		}
 		else if (collider.gameObject.tag == "FIREWALL") 
 		{
-			RemoveSelfFromList();
+			// IGNORE OWN FIREWALLS
+			if (collider.gameObject.GetComponent<FirewallSpecs>().firewallID != projectileID)
+			{
+				RemoveSelfFromList ();
+
+				if(collider.gameObject.GetComponent<FirewallSpecs>().firewallID == 0)
+				{
+					sceneManagerScript.p1totalFirewalls--;
+				}
+
+				if(collider.gameObject.GetComponent<FirewallSpecs>().firewallID == 1)
+				{
+					sceneManagerScript.p2totalFirewalls--;
+				}
+
+				Destroy(collider.gameObject);
+			}
 		}
 	}
 }

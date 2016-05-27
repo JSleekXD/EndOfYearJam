@@ -10,14 +10,21 @@ public class BuildFirewall : MonoBehaviour
 	public List<GameObject> firewallList = new List<GameObject> ();
 	public GameObject firewallObject;
 
-	private bool isCreated;
+
+	//public int playerOneTotalFirewalls;
+	//public int playerTwoTotalFirewalls;
+	public const int MAX_FIREWALLS = 8;
+
+	private bool cannotPlace;
 	private FirewallController firewallControllerScript;
 	private PlayerProperties playerProperties;
 	private PlayerMovement playerMovement;
+	private SceneManager sceneManagerScript;
 
 	
 	void Awake()
 	{
+		sceneManagerScript = GameObject.FindGameObjectWithTag (TAGS.SCENEMANAGER).GetComponent<SceneManager> ();
 		playerProperties = GetComponent<PlayerProperties> ();
 		playerMovement = GetComponent<PlayerMovement> ();
 	}
@@ -33,36 +40,60 @@ public class BuildFirewall : MonoBehaviour
 	{
 		currentLane = playerMovement.currentLane;
 
-		if(Input.GetKeyDown(KeyCode.Space) && playerID == 0)
+
+		if (Input.GetKeyDown (KeyCode.Space) && playerID == 0) 
 		{
-			// get the firewallControllerScript on the lane that the player is on. 
-			firewallControllerScript =	playerMovement.deskArray[currentLane].GetComponent<FirewallController> (); 
+			if(sceneManagerScript.p1totalFirewalls < MAX_FIREWALLS)
+			{
+				// get the firewallControllerScript on the lane that the player is on. 
+				firewallControllerScript = playerMovement.deskArray [currentLane].GetComponent<FirewallController> (); 
 
-			// Print the current lane value and the player ID value
-			Debug.Log("PLAYER ID: " + playerID + "CURRENT LANE: " + playerMovement.currentLane);
+				// Print the current lane value and the player ID value
+				Debug.Log ("PLAYER ID: " + playerID + "CURRENT LANE: " + playerMovement.currentLane);
 
-			// Get the correct list on that lane. 
-			firewallList = firewallControllerScript.SelectList(playerID);
+				// Get the correct list on that lane. 
+				firewallList = firewallControllerScript.SelectList (playerID);
 
-			ListCountCheck(playerID);
-		}
-		
-		if(Input.GetKeyDown(KeyCode.Return) && playerID == 1)
+				ListCountCheck (playerID);
+			}
+			else
+			{
+				cannotPlace = true;
+			}
+		}		
+
+		if (Input.GetKeyDown (KeyCode.Return) && playerID == 1) 
 		{
-			// get the firewallControllerScript on the lane that the player is on. 
-			firewallControllerScript =	playerMovement.deskArray[currentLane].GetComponent<FirewallController> (); 
-			
-			// Print the current lane value and the player ID value
-			Debug.Log("PLAYER ID: " + playerID + "CURRENT LANE: " + playerMovement.currentLane);
-			
-			// Get the correct list on that lane. 
-			firewallList = firewallControllerScript.SelectList(playerID);
+			if(sceneManagerScript.p2totalFirewalls < MAX_FIREWALLS)
+			{
+				// get the firewallControllerScript on the lane that the player is on. 
+				firewallControllerScript = playerMovement.deskArray [currentLane].GetComponent<FirewallController> (); 
 		
-			ListCountCheck(playerID);
+				// Print the current lane value and the player ID value
+				Debug.Log ("PLAYER ID: " + playerID + "CURRENT LANE: " + playerMovement.currentLane);
+
+				// Get the correct list on that lane. 
+				firewallList = firewallControllerScript.SelectList (playerID);
+		
+				ListCountCheck (playerID);
+			}
+			else
+			{
+				cannotPlace = true;
+			}
 		}
+	
+
+		if(cannotPlace)
+		{
+			// PLAYER CANNOT PLACE SFX
+		}
+
+		cannotPlace = false;
 	}
 
-	bool ListCountCheck(int playerID)
+	// CHECK THE FIREWALLS POSITION IN THE LIST GIVE IT A VALUE TO BE PLACED AT
+	void ListCountCheck(int playerID)
 	{
 		if (firewallList.Count == 0) 
 		{
@@ -76,13 +107,6 @@ public class BuildFirewall : MonoBehaviour
 		{
 			PlaceFirewall(playerID, 4);
 		}
-		else
-		{
-			// FIREWALL CANNOT BE PLACED
-			return false;
-		}
-		
-		return true;
 	}
 	
 	void PlaceFirewall(int playerID, int positionValue)
@@ -92,13 +116,24 @@ public class BuildFirewall : MonoBehaviour
 		case 0:
 			Debug.Log("placing player 0");
 			GameObject p1Firewall = (GameObject)Instantiate (firewallObject, new Vector3 (transform.position.x + positionValue, transform.position.y, transform.position.z), transform.rotation);
-			firewallList.Add(p1Firewall); // PUSH OBJECT INTO LIST
+			p1Firewall.GetComponent<FirewallSpecs>().firewallID = playerID;		// SET FIREWALL TAG
+			firewallList.Add(p1Firewall);										// PUSH OBJECT INTO LIST
+			//playerOneTotalFirewalls++;											// INCREMENT COUNTER
+			sceneManagerScript.p1totalFirewalls++;
 			break;
 		case 1:
 			Debug.Log("placing player 1");
 			GameObject p2Firewall = (GameObject)Instantiate (firewallObject, new Vector3 (transform.position.x - positionValue, transform.position.y, transform.position.z), transform.rotation);
-			firewallList.Add(p2Firewall); // PUSH OBJECT INTO LIST
+			p2Firewall.GetComponent<FirewallSpecs>().firewallID = playerID;		// SET FIREWALL TAG
+			firewallList.Add(p2Firewall);										// PUSH OBJECT INTO LIST
+			//playerTwoTotalFirewalls++;											// INCREMENT COUNTER
+			sceneManagerScript.p2totalFirewalls++;
 			break;
 		}
+	}
+
+	public void DecrementCounter(int firewallID)
+	{
+		
 	}
 }
