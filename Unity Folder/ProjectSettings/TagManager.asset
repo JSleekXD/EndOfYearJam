@@ -9,6 +9,7 @@ TagManager:
   - DESK
   - FIREWALL_00
   - FIREWALL_01
+  - FIREWALL
   layers:
   - Default
   - TransparentFX

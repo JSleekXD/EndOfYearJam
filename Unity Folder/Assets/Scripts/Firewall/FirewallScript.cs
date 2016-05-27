@@ -31,9 +31,6 @@ public class FirewallScript : MonoBehaviour
 		{
 			// DISAPPEAR
 			gameObject.SetActive(false);
-
-			// REVERSE PROJECTILE DIRECTION
-			playerFiringScript.ReverseDirection(other.gameObject);
 		}
 	}
 }

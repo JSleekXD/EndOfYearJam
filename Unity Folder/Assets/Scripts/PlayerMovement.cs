@@ -56,8 +56,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 
-	public int GetPositionID()
+	public int GetPlayerID()
 	{
 		return playerID;
+	}
+
+	public int GetLaneID()
+	{
+		return currentLane;
 	}
 }
