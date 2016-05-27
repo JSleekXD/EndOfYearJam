@@ -12,7 +12,7 @@ public class FirewallScript : MonoBehaviour
 	void Start()
 	{
 		playerMovement = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerMovement> ();
-		numOfFirewalls = playerMovement.deskArray.Length * 4;
+		numOfFirewalls = playerMovement.deskArray.Length * 2;
 	}
 
 
@@ -20,7 +20,10 @@ public class FirewallScript : MonoBehaviour
 	{
 		for(int i = 0; i < numOfFirewalls; i++)
 		{
+			if(playerMovement.deskArray.Length / 2)
+			{
 
+			}
 		}
 	}
 }
