@@ -218,6 +218,8 @@ MonoBehaviour:
   playerID: 0
   currentLane: 0
   firewallManager: {fileID: 151376, guid: 71d033a6cce359640a71f98d60c6c03b, type: 2}
+  firewallList: []
+  firewallObject: {fileID: 0}
 --- !u!1001 &627011557
 Prefab:
   m_ObjectHideFlags: 0
@@ -418,6 +420,8 @@ MonoBehaviour:
   playerID: 0
   currentLane: 0
   firewallManager: {fileID: 151376, guid: 71d033a6cce359640a71f98d60c6c03b, type: 2}
+  firewallList: []
+  firewallObject: {fileID: 181230, guid: eb1eb2f3219d2a1468f65a2711585094, type: 2}
 --- !u!1 &1391801024
 GameObject:
   m_ObjectHideFlags: 0
