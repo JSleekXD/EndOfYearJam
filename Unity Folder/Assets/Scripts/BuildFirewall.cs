@@ -11,13 +11,18 @@ public class BuildFirewall : MonoBehaviour
 	public int maxFirewalls;
 	public List<GameObject> firewallList = new List<GameObject> ();
 	public int currentLane;
+
+	private bool isCreated;
 	
 	public GameObject firewall;
+	private FirewallController firewallController;
 	private PlayerProperties playerProperties;
 	private PlayerMovement playerMovement;
+
 	
 	void Awake()
 	{
+		firewallController = firewall.GetComponent<FirewallController> ();
 		playerMovement = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerMovement> ();
 		playerProperties = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerProperties> ();
 	}
@@ -34,14 +39,14 @@ public class BuildFirewall : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.Space) && playerID == 0)
 		{
-			Debug.Log("SPACE PRESSED");
-			CreateFirewall();
+			Debug.Log("SPACE PRESSED" + playerID);
+			firewallController.BuildFirewall(playerID);
 		}
 		
 		if(Input.GetKeyDown(KeyCode.Return) && playerID == 1)
 		{
-			Debug.Log("QUESTION PRESDSED");
-			CreateFirewall();
+			Debug.Log("RETURN PRESSED" + playerID);
+			firewallController.BuildFirewall(playerID);
 		}
 	}
 	
