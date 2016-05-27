@@ -17,12 +17,16 @@ public class PlayerMovement : MonoBehaviour {
 		if (playerID == 0) 
 		{
 			//transform.position = new Vector2 (deskArray [0].transform.position.x - 5, 0);
-			transform.position = new Vector2 (0 - deskArray[0].transform.localScale.x/2, deskArray[deskArray.Length-1].transform.position.y);
+            transform.position = new Vector2 (0 - deskArray[0].transform.localScale.x/2, deskArray[0].transform.position.y);
+            
+            //transform.position = new Vector2 (0 - deskArray[0].transform.localScale.x/2, deskArray[deskArray.Length-1].transform.position.y);
 		}
 		if (playerID == 1)
 		{
-			transform.position = new Vector2 (0 + deskArray[0].transform.localScale.x/2, deskArray[deskArray.Length-1].transform.position.y);
-			//transform.position = new Vector2 (deskArray [0].transform.position.x + 5, 0);
+			//transform.position = new Vector2 (0 + deskArray[0].transform.localScale.x/2, deskArray[deskArray.Length-1].transform.position.y);
+            transform.position = new Vector2 (0 + deskArray[0].transform.localScale.x/2, deskArray[0].transform.position.y);
+            
+            //transform.position = new Vector2 (deskArray [0].transform.position.x + 5, 0);
 		}
 	}
 	
