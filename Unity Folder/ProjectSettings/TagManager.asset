@@ -12,6 +12,8 @@ TagManager:
   - FIREWALL
   - Projectile
   - DEFENSE
+  - SCENEMANAGER
+  - WINTEXT
   layers:
   - Default
   - TransparentFX

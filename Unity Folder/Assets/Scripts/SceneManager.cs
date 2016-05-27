@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,13 +9,33 @@ public class SceneManager : MonoBehaviour
     public List<GameObject> desks;
     public GameObject deskRef;
     public GameObject defenseTriggerRef;
+	public int winnerID;
+	public GameObject winText;
+	private bool isGameOver =false;
+
+	void Awake(){
+		DontDestroyOnLoad (transform.gameObject);
+	}
 
     void Start() 
     {
         SpawnDesks();
         ZoomCamera();
         SpawnDefenseTriggers();
+		Debug.Log ("START");
     }
+	void Update(){
+		CheckIfEndScene ();
+	}
+	void CheckIfEndScene(){
+		if (!isGameOver) {
+			if (Application.loadedLevel == 3) {
+				winText = GameObject.FindGameObjectWithTag ("WINTEXT");
+				winText.GetComponent<Text>().text = "PLAYER " + (winnerID+1) + " WINS!";
+				isGameOver = true;
+			}
+		}
+	}
     
     void SpawnDesks()
     {
@@ -54,4 +75,9 @@ public class SceneManager : MonoBehaviour
             newDefenseTrigger.transform.localScale = new Vector2(1, desiredDesks * 2);
         }
     }
+
+	public int DesksCount()
+	{
+		return desks.Count;
+	}
 }

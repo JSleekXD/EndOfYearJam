@@ -209,7 +209,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 860581745}
-  - 114: {fileID: 860581744}
   m_Layer: 0
   m_Name: Desks
   m_TagString: Untagged
@@ -217,21 +216,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &860581744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 860581743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8203b8b869b6274ba36d528b4d6a8de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  desiredDesks: 11
-  desks: []
-  deskRef: {fileID: 151412, guid: 21763aa64950a4e4f9bdc14a0409063c, type: 2}
-  defenseTriggerRef: {fileID: 130630, guid: 5bc831388f492634b8b6f81017b13bf4, type: 2}
 --- !u!4 &860581745
 Transform:
   m_ObjectHideFlags: 0
@@ -358,6 +342,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   playerHealth: 0
+--- !u!1 &1391801024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1391801026}
+  - 114: {fileID: 1391801025}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: SCENEMANAGER
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1391801025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391801024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8203b8b869b6274ba36d528b4d6a8de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  desiredDesks: 4
+  desks: []
+  deskRef: {fileID: 151412, guid: 21763aa64950a4e4f9bdc14a0409063c, type: 2}
+  defenseTriggerRef: {fileID: 130630, guid: 5bc831388f492634b8b6f81017b13bf4, type: 2}
+  winnerID: 0
+  winText: {fileID: 0}
+--- !u!4 &1391801026
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1391801024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
 --- !u!1 &1692133052
 GameObject:
   m_ObjectHideFlags: 0
