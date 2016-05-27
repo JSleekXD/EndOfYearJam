@@ -184,7 +184,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662401d60c8ab4541a76108c6d51ba73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLane: 0
   deskArray: []
+  audioSource: {fileID: 0}
+  beep: {fileID: 0}
 --- !u!114 &380513392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 0
-  playerDefense: {fileID: 0}
+  playerHealth: 0
 --- !u!1 &860581743
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,7 +341,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662401d60c8ab4541a76108c6d51ba73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLane: 0
   deskArray: []
+  audioSource: {fileID: 0}
+  beep: {fileID: 0}
 --- !u!114 &1310709042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,7 +357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 1
-  playerDefense: {fileID: 0}
+  playerHealth: 0
 --- !u!1 &1692133052
 GameObject:
   m_ObjectHideFlags: 0
