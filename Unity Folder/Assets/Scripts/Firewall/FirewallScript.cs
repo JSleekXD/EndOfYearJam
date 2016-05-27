@@ -3,6 +3,17 @@ using System.Collections;
 
 public class FirewallScript : MonoBehaviour 
 {
+	public bool isInstantiated = false;
+
+	private GameObject[] firewallArray;
+	private GameObject firewall;
+	private PlayerMovement playerMovement;
+
+	void Awake()
+	{
+		playerMovement = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerMovement> ();
+		firewall = GameObject.FindGameObjectWithTag (TAGS.FIRE_WALL);
+	}
 
 	void Start()
 	{
@@ -12,9 +23,17 @@ public class FirewallScript : MonoBehaviour
 	void Update()
 	{
 		// IF FIREWALLS ARE NOT INSTANTIATED
-
+		if (!isInstantiated) 
+		{
+			LoadFirewalls();
+			isInstantiated = true;
+		}
 	}
 
+	void LoadFirewalls()
+	{
+		// INSTANTIATE FIRE WALLS
+	}
 }
 
 
