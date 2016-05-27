@@ -19,7 +19,7 @@ public class BuildFirewall : MonoBehaviour
 	void Awake()
 	{
 		playerProperties = GetComponent<PlayerProperties> ();
-		playerMovement = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerMovement> ();
+		playerMovement = GetComponent<PlayerMovement> ();
 	}
 	
 	
@@ -31,10 +31,12 @@ public class BuildFirewall : MonoBehaviour
 	
 	void Update()
 	{
+		currentLane = playerMovement.currentLane;
+
 		if(Input.GetKeyDown(KeyCode.Space) && playerID == 0)
 		{
 			// get the firewallControllerScript on the lane that the player is on. 
-			firewallControllerScript =	playerMovement.deskArray[playerMovement.GetCurrentLane(playerID)].GetComponent<FirewallController> (); 
+			firewallControllerScript =	playerMovement.deskArray[currentLane].GetComponent<FirewallController> (); 
 
 			// Print the current lane value and the player ID value
 			Debug.Log("PLAYER ID: " + playerID + "CURRENT LANE: " + playerMovement.currentLane);
@@ -48,7 +50,7 @@ public class BuildFirewall : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Return) && playerID == 1)
 		{
 			// get the firewallControllerScript on the lane that the player is on. 
-			firewallControllerScript =	playerMovement.deskArray[playerMovement.GetCurrentLane(playerID)].GetComponent<FirewallController> (); 
+			firewallControllerScript =	playerMovement.deskArray[currentLane].GetComponent<FirewallController> (); 
 			
 			// Print the current lane value and the player ID value
 			Debug.Log("PLAYER ID: " + playerID + "CURRENT LANE: " + playerMovement.currentLane);

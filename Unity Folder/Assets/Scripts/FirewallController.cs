@@ -8,19 +8,6 @@ public class FirewallController : MonoBehaviour
 	public List<GameObject> p2List = new List<GameObject>();
 
 
-
-	// Use this for initialization
-	void Start () 
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
-
 	public List<GameObject> SelectList(int playerID)
 	{
 		List<GameObject> temp = new List<GameObject> ();
@@ -35,5 +22,10 @@ public class FirewallController : MonoBehaviour
 			break;
 		}
 		return temp;
+	}
+
+	public void RemoveFromList()
+	{
+
 	}
 }
