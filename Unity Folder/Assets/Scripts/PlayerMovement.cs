@@ -11,8 +11,12 @@ public class PlayerMovement : MonoBehaviour
 	public AudioSource audioSource;
 	public AudioClip beep;
 
+	public GameObject roundCountdown;
+	public bool playerDisabled = false;
+
 	void Start() 
 	{
+		roundCountdown = GameObject.FindGameObjectWithTag ("COUNTDOWN");
 		audioSource = GetComponent<AudioSource> ();
 		playerID = GetComponent<PlayerProperties> ().playerID;
         player = GameObject.Find("Player" + playerID).transform;
@@ -36,7 +40,12 @@ public class PlayerMovement : MonoBehaviour
 	
 	void Update() 
 	{
-        ProcessMovement(playerID);
+		if (roundCountdown.GetComponent<RoundCountdown> ().countFinished) {
+			ProcessMovement (playerID);
+			playerDisabled = false;
+		} else {
+			playerDisabled = true;
+		}
 	}
 
     public void ProcessMovement(int id)

@@ -17,24 +17,37 @@ public class PlayerFiring : MonoBehaviour {
     
 	void Start () 
 	{
+		player1Fire = KeyCode.A;
+		player2Fire = KeyCode.LeftArrow;
 		playerID = GetComponent<PlayerProperties> ().playerID;
-        
-        ToggleManager toggleManager = GameObject.Find("ToggleManager").GetComponent<ToggleManager>();
-        
-        if (!toggleManager.isPlayer1Toggled)
-            player1Fire = KeyCode.A;
-        else
-            player1Fire = KeyCode.D;
-            
-        if (!toggleManager.isPlayer2Toggled)
-            player2Fire = KeyCode.LeftArrow;
-        else
-            player2Fire = KeyCode.RightArrow;
+		if (GameObject.Find ("ToggleManager") != null) {
+
+			ToggleManager toggleManager = GameObject.Find ("ToggleManager").GetComponent<ToggleManager> ();
+		
+			if (!toggleManager.isPlayer1Toggled)
+				player1Fire = KeyCode.A;
+			else
+				player1Fire = KeyCode.D;
+			
+			if (!toggleManager.isPlayer2Toggled)
+				player2Fire = KeyCode.LeftArrow;
+			else
+				player2Fire = KeyCode.RightArrow;
+		}
+		
+		
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+		if (GetComponent<PlayerMovement> ().playerDisabled == false) {
+			ProcessFiring ();
+		}
+	}
+
+	public void ProcessFiring(){
+	
 		if(Input.GetKeyDown(player1Fire) && playerID == 0)
 		{
 			if(projectileList.Count < maxProjectiles)
@@ -42,7 +55,7 @@ public class PlayerFiring : MonoBehaviour {
 				FireProjectile(projectile);
 			}
 		}
-        
+		
 		if (Input.GetKeyDown(player2Fire) && playerID == 1) 
 		{
 			if(projectileList.Count < maxProjectiles)
