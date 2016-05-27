@@ -11,24 +11,39 @@ public class PlayerFiring : MonoBehaviour {
 	public int speed = 500;
 	private int playerID;
 	public List<GameObject> projectileList = new List<GameObject>();
-
-
+    
+    private KeyCode player1Fire;
+    private KeyCode player2Fire;
+    
 	void Start () 
 	{
 		playerID = GetComponent<PlayerProperties> ().playerID;
+        
+        ToggleManager toggleManager = GameObject.Find("ToggleManager").GetComponent<ToggleManager>();
+        
+        if (!toggleManager.isPlayer1Toggled)
+            player1Fire = KeyCode.A;
+        else
+            player1Fire = KeyCode.D;
+            
+        if (!toggleManager.isPlayer2Toggled)
+            player2Fire = KeyCode.LeftArrow;
+        else
+            player2Fire = KeyCode.RightArrow;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.A) && playerID == 0)
+		if(Input.GetKeyDown(player1Fire) && playerID == 0)
 		{
 			if(projectileList.Count < maxProjectiles)
 			{
 				FireProjectile(projectile);
 			}
 		}
-		if (Input.GetKeyDown (KeyCode.LeftArrow) && playerID == 1) 
+        
+		if (Input.GetKeyDown(player2Fire) && playerID == 1) 
 		{
 			if(projectileList.Count < maxProjectiles)
 			{
