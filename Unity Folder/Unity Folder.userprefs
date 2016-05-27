@@ -1,14 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Firewall\PlayerPositionScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PlayerHealth.cs">
     <Files>
-      <File FileName="Assets\Scripts\Projectile.cs" Line="11" Column="2" />
+      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="25" Column="1" />
+      <File FileName="Assets\Scripts\Projectile.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Firewall\FirewallScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerFiring.cs" Line="13" Column="26" />
+      <File FileName="Assets\Scripts\PlayerFiring.cs" Line="14" Column="34" />
       <File FileName="Assets\Scripts\test script.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\EndMenuManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Firewall\PlayerPositionScript.cs" Line="13" Column="3" />
+      <File FileName="Assets\Scripts\Firewall\PlayerPositionScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\PlayerHealth.cs" Line="4" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
