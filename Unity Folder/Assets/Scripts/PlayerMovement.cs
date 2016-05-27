@@ -59,8 +59,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 
-	public int GetPositionID()
+	public GameObject[] GetDeskArray()
 	{
-		return playerID;
+		return deskArray;
 	}
 }

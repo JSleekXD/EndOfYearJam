@@ -19,28 +19,35 @@ public class PlayerFiring : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		if(Input.GetKeyDown(KeyCode.A) && playerID == 0){
-			if(projectileList.Count < maxProjectiles){
-			FireProjectile(projectile);
+	void Update () 
+	{
+		if(Input.GetKeyDown(KeyCode.A) && playerID == 0)
+		{
+			if(projectileList.Count < maxProjectiles)
+			{
+				FireProjectile(projectile);
 			}
 		}
-		if (Input.GetKeyDown (KeyCode.LeftArrow) && playerID == 1) {
-			if(projectileList.Count < maxProjectiles){
+		if (Input.GetKeyDown (KeyCode.LeftArrow) && playerID == 1) 
+		{
+			if(projectileList.Count < maxProjectiles)
+			{
 				FireProjectile(projectile);
 			}
 		}
 	}
 
-	public void FireProjectile(GameObject projectile){
-
-		if (playerID == 0) {
+	public void FireProjectile(GameObject projectile)
+	{
+		if (playerID == 0) 
+		{
 			GameObject projectileClone = (GameObject)Instantiate (projectile, new Vector3 (transform.position.x + 2, transform.position.y, transform.position.z), transform.rotation);
 			projectileClone.GetComponent<Projectile> ().projectileID = playerID;
 			projectileList.Add (projectileClone);
 			projectileClone.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (1, 0) * speed);
-		} else if (playerID == 1) {
+		} 
+		else if (playerID == 1) 
+		{
 			GameObject projectileClone = (GameObject)Instantiate (projectile, new Vector3 (transform.position.x - 2, transform.position.y, transform.position.z), transform.rotation);
 			projectileClone.GetComponent<Projectile> ().projectileID = playerID;
 			projectileList.Add (projectileClone);
@@ -48,15 +55,8 @@ public class PlayerFiring : MonoBehaviour {
 		}
 	}
 
-	public void RemoveProjectilefromList(){
-		projectileList.RemoveAt (0);
-	}
-
-
-	// IF THE PROJECTILE HITS A FIRE WALL. REVERSE DIRECTION
-	public void ReverseDirection(GameObject projectileClone)
+	public void RemoveProjectilefromList()
 	{
-		Debug.Log (projectileClone);
-		projectileClone.GetComponent<Rigidbody2D> ().velocity *= (float)-0.2; //(new Vector2 (1, 0) * reverseSpeed);
+		projectileList.RemoveAt (0);
 	}
 }
