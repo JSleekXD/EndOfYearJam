@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class FirewallScript : MonoBehaviour 
 {
@@ -7,18 +9,18 @@ public class FirewallScript : MonoBehaviour
 
 	private GameObject[] firewallArray;
 	private GameObject firewall;
-	private PlayerMovement playerMovement;
-	private int firewallID;
+	private PlayerProperties playerProperties;
+	public int firewallID;
 
 	void Awake()
 	{
-		playerMovement = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<PlayerMovement> ();
+		playerProperties = GameObject.FindGameObjectWithTag (TAGS.PLAYER).GetComponent<Player> ();
 		firewall = GameObject.FindGameObjectWithTag (TAGS.FIRE_WALL);
 	}
 
 	void Start()
 	{
-
+		firewallID = GetComponent
 	}
 
 	void Update()
@@ -33,21 +35,13 @@ public class FirewallScript : MonoBehaviour
 
 	void LoadFirewalls()
 	{
-		// CREATE AMOUNT OF FIRE WALLS
-		for(int i = 0; i < (playerMovement.deskArray.Length * 4); ++i)
-		{
-			// FIRST ROW
-			if(i <= playerMovement.deskArray.Length)
-			{
-				CreateFirewallObj(
-			}
-		}
+
 	}
 
-	void CreateFirewallObj(int position)
+	void CreateFirewallObj()
 	{
 		// PLACE FIREWALLS AT POSITION AND GIVE THE FIREWALLS A ID
-		GameObject firewallClone = (GameObject)Instantiate (firewall, new Vector2 (transform.position.x + 2, transform.position.y, transform.position.z), transform.rotation);
+		//GameObject firewallClone = (GameObject)Instantiate (firewall, new Vector2 (transform.position.x + 2, transform.position.y, transform.position.z), transform.rotation);
 		// SET ID
 		//projectileList.Add (projectileClone);
 	}
