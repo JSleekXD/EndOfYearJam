@@ -25,11 +25,7 @@ public class Projectile : MonoBehaviour
 		}
         
         if (otherTag == "Projectile")
-        {
-            // Ignore collisions with other projectiles from the shooting player
-            if (other.gameObject.GetComponent<Projectile>().playerID == playerID)
                 return;
-        }
         
         if (otherTag == "Firewall")
         {
