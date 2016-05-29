@@ -16,6 +16,10 @@ public class SceneManager : MonoBehaviour
 	private bool isGameOver =false;
 
 	void Awake(){
+		SpawnDesks ();
+		ZoomCamera();
+		SpawnDefenseTriggers();
+
 		DontDestroyOnLoad (transform.gameObject);
 
 		p1totalFirewalls = 0;
@@ -24,10 +28,11 @@ public class SceneManager : MonoBehaviour
 
     void Start() 
     {
-        SpawnDesks();
-        ZoomCamera();
-        SpawnDefenseTriggers();
-		Debug.Log ("START");
+		// CHANGE EXECUTION ORDER
+       // SpawnDesks();
+       // ZoomCamera();
+       // SpawnDefenseTriggers();
+		//Debug.Log ("START");
     }
 	void Update(){
 		CheckIfEndScene ();

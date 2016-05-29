@@ -17,6 +17,7 @@ TagManager:
   - BEEP
   - BEEPEND
   - COUNTDOWN
+  - NPC
   layers:
   - Default
   - TransparentFX
