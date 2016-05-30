@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (nonPlayerCharacter != null) {
 			nonPlayerCharacter.GetComponent<NPCMovement> ().targetLanes.Add (lane);
-			Debug.Log("LaneADDED");
 		}
 	}
 

@@ -29,6 +29,7 @@ public class NPCMovement : MonoBehaviour
 		if (!isMoving) {
 			targetPos = GenerateRandomNum ();			// Generate a random number
 		//	targetPos = targetLanes[0];
+			targetLanes.RemoveAt(0);
 			amountMoves = targetPos - currentLane;		// Get the number of moves to make
 
 			// Get the direction to move in. 
