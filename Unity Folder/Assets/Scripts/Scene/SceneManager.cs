@@ -95,6 +95,9 @@ public class SceneManager : MonoBehaviour
             newPlayer.GetComponent<PlayerProperties>().playerID = i;
             players.Add(newPlayer);
 		}
+		if (newPlayer.GetComponent<PlayerProperties> ().playerID == 1) {
+			newPlayer.transform.localEulerAngles = new Vector3(0,0,180);
+		}
 	}
 
 	void SpawnNPC()
