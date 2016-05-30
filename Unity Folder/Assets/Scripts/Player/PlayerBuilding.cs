@@ -7,9 +7,9 @@ public class PlayerBuilding : MonoBehaviour
 	public List<List<GameObject>> firewalls = new List<List<GameObject>>();
     public GameObject firewallRef;
     public int maxFirewalls = 8;
-    private int currentFirewalls = 0;
+    public int currentFirewalls = 0;
     
-    private const int MAX_FIREWALLS_PER_LANE = 3;
+    public  int MAX_FIREWALLS_PER_LANE = 3;
     private const int BASE_OFFSET_X = 2;
     
 	void Start() 
@@ -40,6 +40,9 @@ public class PlayerBuilding : MonoBehaviour
             currentFirewalls += list.Count;
         }
     }
+	public int FirewallsInLane (int currentLane){
+		return firewalls [currentLane].Count;
+	}
 
     void PlaceFirewall(GameObject player, int playerID, int currentLane)
 	{
