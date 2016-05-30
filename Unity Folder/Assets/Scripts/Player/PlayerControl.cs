@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerControl : MonoBehaviour 
 {
@@ -20,6 +22,9 @@ public class PlayerControl : MonoBehaviour
 	private float firewallTimer =0;
 	private float firewallTimerThreshold = .5f;
 	private bool  isPlayerBuildingFirewall = false;
+	public List<GameObject> playerComputers;
+	private bool stopDeterminingFill = false;
+
 
 	private NPCControl npcRef;
     
@@ -33,6 +38,7 @@ public class PlayerControl : MonoBehaviour
         runtimeVariables = RuntimeVariables.GetInstance();
                     
         SetupControls();
+		SetupComputers ();
     }
 	
 	void Update() 
@@ -41,6 +47,27 @@ public class PlayerControl : MonoBehaviour
             return;
             
         ProcessActions();
+	}
+
+	void SetupComputers(){
+
+		List<GameObject> leftComputers = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().leftComputers;
+		List<GameObject> rightComputers = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().rightComputers;
+
+		if (playerID == 0) {
+			for(int i = 0; i < leftComputers.Count; i++)
+			{
+				playerComputers.Add(leftComputers[i]);
+			}
+
+		}
+		if (playerID == 1) {
+			for(int i = 0; i < rightComputers.Count; i++)
+			{
+				playerComputers.Add(rightComputers[i]);
+			}
+	
+		}
 	}
     
     void SetupControls()
@@ -112,6 +139,8 @@ public class PlayerControl : MonoBehaviour
         
         if (Input.GetKey(ActionBuildFirewall))
         {
+			CheckFirewallsInLane();
+			ChangeComputerFirewallFill(playerMovement.CurrentLane);
 			if (Input.GetKeyDown(ActionBuildFirewall))
 				PassActionToNPC(ActionBuildFirewall);
 
@@ -125,14 +154,39 @@ public class PlayerControl : MonoBehaviour
         }
 		else
 		{
-			ResetBuildTimer();
+		//	playerComputers [GetComponent<PlayerMovement>().CurrentLane].GetComponentInChildren<Image> ().fillAmount = 0;
+
+				ResetBuildTimer();
 		}
     }
+
+	void ChangeComputerFirewallFill(int currentLane){
+		CheckFirewallsInLane ();
+		Debug.Log ("HELLO");
+		if (stopDeterminingFill == false) {
+			playerComputers [currentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
+		}
+		//Debug.Log (playerComputers [currentLane].GetComponentInChildren<Image> ().fillAmount);
+	}
+
+	void CheckFirewallsInLane(){
+		if (GetComponent<PlayerBuilding> ().FirewallsInLane (GetComponent<PlayerMovement> ().CurrentLane) == GetComponent<PlayerBuilding> ().MAX_FIREWALLS_PER_LANE) {
+			Debug.Log ("MAX");
+			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 1;
+			stopDeterminingFill = true;
+		} else {
+			stopDeterminingFill = false;
+		}
+	}
     
     void ResetBuildTimer()
     {
 		isPlayerBuildingFirewall = false;
 		firewallTimer = 0f;
+		CheckFirewallsInLane ();
+		if (stopDeterminingFill == false) {
+			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 0;
+		}
     }
 
 	public int GetPlayerID

@@ -74,6 +74,7 @@ public class SceneManager : MonoBehaviour
 			newComputer.name = "Computer" + i;
 			newComputer.transform.SetParent(computerParent.transform);
 			newComputer.transform.localEulerAngles = new Vector3 (0,0,270);
+			newComputer.transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
 			//newComputer.transform.position = new Vector2(0, ;
 			leftComputers.Add(newComputer);
 		}
@@ -82,6 +83,7 @@ public class SceneManager : MonoBehaviour
 			newComputer.name = "Computer" + i;
 			newComputer.transform.SetParent(computerParent.transform);
 			newComputer.transform.localEulerAngles = new Vector3 (0,0,90);
+			newComputer.transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
 			rightComputers.Add(newComputer);
 		}
 
@@ -89,6 +91,7 @@ public class SceneManager : MonoBehaviour
 			leftComputers[i].transform.position = new Vector2(-desks[i].transform.localScale.x/3f, desks[i].transform.position.y);
 			rightComputers[i].transform.position = new Vector2(desks[i].transform.localScale.x/3f, desks[i].transform.position.y);
 		}
+		//computerParent.transform.position = new Vector2 (0, 0 - (desiredDesks - 1));
 
 	}
 	
