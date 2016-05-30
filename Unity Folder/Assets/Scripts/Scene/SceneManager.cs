@@ -126,14 +126,38 @@ public class SceneManager : MonoBehaviour
 		get { return desks.Count; }
 	}
     
-    public void EnablePlayerControl()
+    public void EnablePlayerControl(bool value)
 	{
         foreach (GameObject p in players)
         {
 			if(p.gameObject.tag == "Player")
-				p.GetComponent<PlayerControl>().isControllable = true;
+				p.GetComponent<PlayerControl>().isControllable = value;
+				
 			if(p.gameObject.tag == "NPC")
-				newNPC.GetComponent<NPCControl> ().isControllable = true;
+				newNPC.GetComponent<NPCControl> ().isControllable = value;
         }
+    }
+	
+	    public void EndOfRound()
+    {
+    	DetermineRoundWinner();
+
+    }
+    
+    void DetermineRoundWinner()
+    {
+		int tempWinnerID = 10;
+		float healthComparison = 0f;
+		for (int i = 0; i < 2; ++i)
+		{
+			PlayerDefense defenseRef = defenseTriggers[i].GetComponent<PlayerDefense>();
+			if (defenseRef.defenseHealthCurrent > healthComparison)
+			{
+				healthComparison = defenseRef.defenseHealthCurrent;
+				tempWinnerID = i;
+			}
+		}
+		
+		print("Player" + (tempWinnerID + 1) + " wins the round!");
     }
 }
