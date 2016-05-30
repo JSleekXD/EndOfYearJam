@@ -26,6 +26,9 @@ public class SceneManager : MonoBehaviour
     private float BASE_DEFENSE_TRIGGER_OFFSET_X = 3f;
 	private RuntimeVariables runtimeVariables;
 
+	public GameObject computerRef;
+	public List<GameObject> computers;
+
     void Start()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
@@ -39,6 +42,7 @@ public class SceneManager : MonoBehaviour
 		}
 
         SpawnDesks();
+		SpawnComputers ();
         ZoomCamera();
         SpawnDefenseTriggers();
         SpawnPlayers();  
@@ -58,6 +62,27 @@ public class SceneManager : MonoBehaviour
 		}
 		
 		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1));
+	}
+
+	void SpawnComputers(){
+	
+
+		GameObject computerParent = GameObject.Find ("Computers");
+		for (int i =0; i < desiredDesks * 2; i++) {
+			GameObject newComputer = Instantiate (computerRef);
+			newComputer.name = "Computer" + i;
+			newComputer.transform.SetParent(computerParent.transform);
+			//newComputer.transform.position = new Vector2(0, ;
+			computers.Add(newComputer);
+		}
+		computerParent.transform.position = new Vector2 (0, 0 - (desiredDesks - 1));
+
+		for (int i = 0; i < 2; i++) {
+			for(int j = 0; j < desiredDesks; j++){
+			
+				computers[j].transform.position = new Vector2(desks[j].transform.localScale.x/2, desks[j].transform.position.y);
+			}
+		}
 	}
 	
 	void ZoomCamera()
