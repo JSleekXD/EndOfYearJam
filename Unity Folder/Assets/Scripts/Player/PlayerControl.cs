@@ -87,17 +87,19 @@ public class PlayerControl : MonoBehaviour
     
     void ProcessActions()
     {
-		if (Input.GetKeyDown(ActionMoveUp) && !isPlayerBuildingFirewall)
+		if (Input.GetKeyDown(ActionMoveUp))
         {
 			PassActionToNPC(ActionMoveUp);
 
+			ResetBuildTimer();
             playerMovement.MovePlayerUp(playerObj);
         }
         
-		if (Input.GetKeyDown(ActionMoveDown) && !isPlayerBuildingFirewall)
+		if (Input.GetKeyDown(ActionMoveDown))
         {
 			PassActionToNPC(ActionMoveDown);
 
+			ResetBuildTimer();
             playerMovement.MovePlayerDown(playerObj);
         }
         
@@ -110,22 +112,27 @@ public class PlayerControl : MonoBehaviour
         
         if (Input.GetKey(ActionBuildFirewall))
         {
-			if (Input.GetKeyDown (ActionBuildFirewall))
+			if (Input.GetKeyDown(ActionBuildFirewall))
 				PassActionToNPC(ActionBuildFirewall);
 
 			isPlayerBuildingFirewall = true;
-			firewallTimer+=Time.deltaTime;
-			if (firewallTimer >=firewallTimerThreshold)
+			firewallTimer += Time.deltaTime;
+			if (firewallTimer >= firewallTimerThreshold)
 			{
 				playerBuilding.HandleBuild(playerObj, playerID, playerMovement.CurrentLane);
-				firewallTimer = 0f;
+				ResetBuildTimer();
 			}  
         }
 		else
 		{
-			isPlayerBuildingFirewall = false;
-			firewallTimer = 0f;
+			ResetBuildTimer();
 		}
+    }
+    
+    void ResetBuildTimer()
+    {
+		isPlayerBuildingFirewall = false;
+		firewallTimer = 0f;
     }
 
 	public int GetPlayerID
