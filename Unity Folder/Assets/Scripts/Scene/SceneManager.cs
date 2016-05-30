@@ -14,16 +14,22 @@ public class SceneManager : MonoBehaviour
 	public int desiredDesks = 4;
 	public List<GameObject> desks;
 	public GameObject deskRef;
+
+	public GameObject nonPlayerCharacter;								// NEW
+	private RuntimeVariables runtimeVariables;
+
     
     private bool controlEnabled;
     private float BASE_DEFENSE_TRIGGER_OFFSET_X = 3f;
 
     void Start()
     {
+		runtimeVariables = RuntimeVariables.GetInstance ();
+
         SpawnDesks();
         ZoomCamera();
         SpawnDefenseTriggers();
-        SpawnPlayers();     
+        SpawnPlayers();  
     }
     
 	void SpawnDesks()
@@ -84,6 +90,22 @@ public class SceneManager : MonoBehaviour
             newPlayer.GetComponent<PlayerProperties>().playerID = i;
             players.Add(newPlayer);
 		}
+
+		// Check if the player has selected single player mode. 
+		if (runtimeVariables.isSinglePlayerToggled)																		/// NEW
+			SpawnNPC (offsetX);
+	}
+
+	void SpawnNPC(float offSetX)
+	{
+		GameObject newNPC = Instantiate (nonPlayerCharacter);
+		newNPC.name = "Non-Player Character";
+
+		newNPC.transform.position = new Vector2 (0 + offSetX, desks [0].transform.position.y);
+		// Give ID (Unneeded)
+		// Add to list. 
+
+		Destroy (players [1]);
 	}
 	
 	public int DesksCount
@@ -95,7 +117,8 @@ public class SceneManager : MonoBehaviour
     {
         foreach (GameObject p in players)
         {
-            p.GetComponent<PlayerControl>().isControllable = true;
+			if(p != null)
+            	p.GetComponent<PlayerControl>().isControllable = true;
         }
     }
 }

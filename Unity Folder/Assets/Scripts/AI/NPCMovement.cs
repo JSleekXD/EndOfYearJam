@@ -1,136 +1,97 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NPCMovement : MonoBehaviour 
+public class NPCMovement : MonoBehaviour
 {
-	public int currentLane = 0;
-	private Transform NPCPlayer;
-	private int playerID;
-	public GameObject[] deskArray;
-	
-	public AudioSource audioSource;
-	public AudioClip beep;
-	
-	public GameObject roundCountdown;
-	public bool playerDisabled = false;
+	private int currentLane = 0;
+	private int numDesks;
+	public float timer;
+	public const float MAX_TIME = 3.0f; 
 
-	public int randNum;
-	public int targetPos;
-	public int numOfMoves;
-	public bool start = false;
-	public bool waiting = true;
-	public float timer = 0;
-	public float maxTime = 0.75f;
-	//public int targetPos = 0;
+	public int targetLane;
+	public int amountMoves;
+	public bool isMoving;
+	public bool isWaiting;
+	public bool isNeg;
+	public bool isPos;
 
-	void Start() 
+
+	void Start()
 	{
-		//roundCountdown = GameObject.FindGameObjectWithTag ("COUNTDOWN");
-		audioSource = GetComponent<AudioSource> ();
-		playerID = GetComponent<PlayerProperties> ().playerID;
-		NPCPlayer = GameObject.FindGameObjectWithTag("NPC").transform;
-		deskArray = GameObject.FindGameObjectsWithTag("DESK");
-		
-		if (playerID == 0) 
-		{
-			//transform.position = new Vector2 (deskArray [0].transform.position.x - 5, 0);
-			transform.position = new Vector2 (0 - deskArray[0].transform.localScale.x/2, deskArray[0].transform.position.y);
-			
-			//transform.position = new Vector2 (0 - deskArray[0].transform.localScale.x/2, deskArray[deskArray.Length-1].transform.position.y);
-		}
-		if (playerID == 1)
-		{
-			//transform.position = new Vector2 (0 + deskArray[0].transform.localScale.x/2, deskArray[deskArray.Length-1].transform.position.y);
-			transform.position = new Vector2 (0 + deskArray[0].transform.localScale.x/2, deskArray[0].transform.position.y);
-			
-			//transform.position = new Vector2 (deskArray [0].transform.position.x + 5, 0);
-		}
+		numDesks = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().DesksCount;
+		isMoving = false;
 	}
-	
-	void Update() 
+
+	public void Movement(GameObject npcObject)
 	{
-		//if (roundCountdown.GetComponent<RoundCountdown> ().countFinished)
-		//{
+		if (!isMoving) {
+			targetLane = GenerateRandomNum ();			// Generate a random number
+			amountMoves = targetLane - currentLane;		// Get the number of moves to make
 
-		if (start) {
-			targetPos = GenerateRandomNum ();
-			numOfMoves = currentLane - targetPos;
-			// UNTIL REACHED TARGET POSITION
-			for (int i =0; i < numOfMoves; i++) {
-
-				Debug.Log ("IN FOR LOOP");
-				// DETERMINE WHETHER TO MOVE UP OR DOWN
-				if (targetPos > currentLane) {
-					Debug.Log ("+ move");
-					// POSITIVE MOVE
-					ProcessMovement (playerID, true);
-				}
-				if (targetPos < currentLane) {
-
-					Debug.Log ("- move");
-					// NEGITIVE MOVE
-					ProcessMovement (playerID, false);
-				}
-
-				// WAITING
-			//	while (waiting) {
-			//		if (timer <= maxTime) {
-			//			timer += Time.deltaTime;
-			//		} else {
-			//		break;
-			//		}
-				}
+			// Get the direction to move in. 
+			if (amountMoves < 0) {
+				isNeg = true;
+				isPos = false;
+			} else {
+				isPos = true;
+				isNeg = false;
 			}
 		}
 
-		// playerDisabled = false;
-		//} 
-		//else 
-		//{
-		//	playerDisabled = true;
-		//}
+		// When the NPC reaches the destination. 
+		if (targetLane == currentLane) {
+			isMoving = false;
+			isWaiting = true;
+			return;
+		} else {
+			isMoving = true;
+		}
+
+		// Exectuce movement
+		if (isNeg)
+			NegitiveDirection (npcObject);
+		if (isPos) 
+			PositiveDirection (npcObject);
+	}
+
+
+
+	void NegitiveDirection(GameObject npcObject)
+	{
+		if (!Waiting ()) {
+			TranslateNPCY (npcObject, -2f);
+			--currentLane;
+		}
+	}
+
+	void PositiveDirection(GameObject npcObject)
+	{
+		if (!Waiting ()) {
+			TranslateNPCY (npcObject, 2f);
+			++currentLane;
+		}
+	}
 
 
 	int GenerateRandomNum()
 	{
-		randNum = Random.Range (0, deskArray.Length);
+		int randNum = Random.Range (0, numDesks); 
 		return randNum;
 	}
 
-
-	public void ProcessMovement(int id, bool dir)
-	{
-	//	if (currentLane == 0)
-	//		return;
-			switch(dir)
-		{
-		case true:
-			TranslatePlayerY(2f);
-			++currentLane;
-			
-			
-			// PLAY AUDIO
-			audioSource.PlayOneShot(beep);
-			break;
 	
-		//if (currentLane == deskArray.Length - 1)
-		//	return;
-
-		case false:
-			TranslatePlayerY(-2f);
-			--currentLane;
-			
-			
-			// PLAY AUDIO
-			audioSource.PlayOneShot(beep);	
-
-			break;
-		}
-
+	void TranslateNPCY(GameObject npcObject, float amount)
+	{
+		npcObject.transform.position = new Vector2(npcObject.transform.position.x, npcObject.transform.position.y + amount);
 	}
-	
-	public void TranslatePlayerY(float amount)
+
+	bool Waiting()
 	{
-		NPCPlayer.position = new Vector3(NPCPlayer.position.x, NPCPlayer.position.y + amount, 0);
+		if (timer <= MAX_TIME) {
+			timer += Time.deltaTime;
+			return true;
+		}
+		timer = 0.0f;
+		return false;
 	}
 }

@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour 
 {
 	private int currentLane = 0;
-    private int numDesks;
+    private int numDesks;		
 
     void Start()
     {
