@@ -24,8 +24,15 @@ public class Projectile : MonoBehaviour
 				return;
 		}
         
-        if (otherTag == "Projectile")
-                return;
+		if (otherTag == "Projectile") {
+		if(other.gameObject.GetComponent<Projectile>().playerID == playerID){
+				return;
+			}
+			else{
+			
+			}
+		}
+         
         
         if (otherTag == "Firewall")
         {

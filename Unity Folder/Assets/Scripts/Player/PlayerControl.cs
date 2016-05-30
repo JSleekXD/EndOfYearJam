@@ -16,6 +16,10 @@ public class PlayerControl : MonoBehaviour
     private KeyCode ActionBuildFirewall;
     
 	public bool isControllable;
+
+	private float firewallTimer =0;
+	private float firewallTimerThreshold = .5f;
+	private bool  isPlayerBuildingFirewall = false;
     
     void Start() 
     {
@@ -81,12 +85,12 @@ public class PlayerControl : MonoBehaviour
     
     void ProcessActions()
     {
-        if (Input.GetKeyDown(ActionMoveUp))
+		if (Input.GetKeyDown(ActionMoveUp) && !isPlayerBuildingFirewall)
         {
             playerMovement.MovePlayerUp(playerObj);
         }
         
-        if (Input.GetKeyDown(ActionMoveDown))
+		if (Input.GetKeyDown(ActionMoveDown) && !isPlayerBuildingFirewall)
         {
             playerMovement.MovePlayerDown(playerObj);
         }
@@ -96,9 +100,20 @@ public class PlayerControl : MonoBehaviour
             playerShooting.ShootProjectile(playerObj, playerID);
         }
         
-        if (Input.GetKeyDown(ActionBuildFirewall))
+        if (Input.GetKey(ActionBuildFirewall))
         {
-            playerBuilding.HandleBuild(playerObj, playerID, playerMovement.CurrentLane);
+			isPlayerBuildingFirewall = true;
+			firewallTimer+=Time.deltaTime;
+			if(firewallTimer >=firewallTimerThreshold){
+				playerBuilding.HandleBuild(playerObj, playerID, playerMovement.CurrentLane);
+				firewallTimer = 0f;
+			}
+
+          
         }
+		else{
+			isPlayerBuildingFirewall = false;
+			firewallTimer = 0f;
+		}
     }
 }
