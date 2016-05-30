@@ -31,7 +31,8 @@ public class SceneManager : MonoBehaviour
 		runtimeVariables = RuntimeVariables.GetInstance ();
 		
 		// Check if the player has selected single player mode. 
-		if (runtimeVariables.isSinglePlayerToggled) {
+		if (runtimeVariables.isSinglePlayerToggled) 
+		{
 			numberOfPlayers = 1;
 		} else {
 			numberOfPlayers = 2;
@@ -135,18 +136,17 @@ public class SceneManager : MonoBehaviour
 	{
         foreach (GameObject p in players)
         {
-			if(p.gameObject.tag == "Player")
+			if (p.gameObject.tag == "Player")
 				p.GetComponent<PlayerControl>().isControllable = value;
 				
-			if(p.gameObject.tag == "NPC")
-				newNPC.GetComponent<NPCControl> ().isControllable = value;
+			if (p.gameObject.tag == "NPC")
+				newNPC.GetComponent<NPCControl>().isControllable = value;
         }
     }
 	
-	    public void EndOfRound()
+    public void EndOfRound()
     {
     	DetermineRoundWinner();
-
     }
     
     void DetermineRoundWinner()

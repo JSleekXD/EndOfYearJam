@@ -7,7 +7,10 @@ public class RuntimeVariables
 	public int lastPlayerToWin = 0;
 	public bool isPlayer0Toggled = false;
 	public bool isPlayer1Toggled = false;
-	public bool isSinglePlayerToggled = false;			// NEW
+	public bool isSinglePlayerToggled = false;
+	
+	public int player0RoundsWon = 0;
+	public int player1RoundsWon = 0;
 	
 	public static RuntimeVariables GetInstance()
 	{
