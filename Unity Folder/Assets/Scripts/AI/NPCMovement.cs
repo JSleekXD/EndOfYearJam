@@ -27,8 +27,8 @@ public class NPCMovement : MonoBehaviour
 	public void Movement(GameObject npcObject)
 	{
 		if (!isMoving) {
-			targetPos = GenerateRandomNum ();			// Generate a random number
-		//	targetPos = targetLanes[0];
+		//	targetPos = GenerateRandomNum ();			// Generate a random number
+			targetPos = targetLanes[0];
 			targetLanes.RemoveAt(0);
 			amountMoves = targetPos - currentLane;		// Get the number of moves to make
 

@@ -20,6 +20,8 @@ public class PlayerControl : MonoBehaviour
 	private float firewallTimer =0;
 	private float firewallTimerThreshold = .5f;
 	private bool  isPlayerBuildingFirewall = false;
+
+	private NPCControl npcRef;
     
     void Start() 
     {
@@ -87,24 +89,35 @@ public class PlayerControl : MonoBehaviour
     {
 		if (Input.GetKeyDown(ActionMoveUp) && !isPlayerBuildingFirewall)
         {
+			npcRef.AddAction(ActionMoveUp);
+
             playerMovement.MovePlayerUp(playerObj);
+			//npc.AddAction(MovingUp);
         }
         
 		if (Input.GetKeyDown(ActionMoveDown) && !isPlayerBuildingFirewall)
         {
+			npcRef.AddAction(ActionMoveDown);
+
             playerMovement.MovePlayerDown(playerObj);
         }
         
         if (Input.GetKeyDown(ActionShoot))
         {
+			npcRef.AddAction(ActionShoot);
+
             playerShooting.ShootProjectile(playerObj, playerID);
         }
         
         if (Input.GetKey(ActionBuildFirewall))
         {
+			if (Input.GetKeyDown (ActionBuildFirewall))
+				npcRef.AddAction(ActionBuildFirewall);
+
 			isPlayerBuildingFirewall = true;
 			firewallTimer+=Time.deltaTime;
-			if(firewallTimer >=firewallTimerThreshold){
+			if (firewallTimer >=firewallTimerThreshold)
+			{
 				playerBuilding.HandleBuild(playerObj, playerID, playerMovement.CurrentLane);
 				firewallTimer = 0f;
 			}
@@ -120,5 +133,10 @@ public class PlayerControl : MonoBehaviour
 	public int GetPlayerID
 	{
 		get { return playerID; }
+	}
+
+	public void SetNPCref(NPCControl reference)
+	{
+		npcRef = reference;
 	}
 }

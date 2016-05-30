@@ -101,7 +101,8 @@ public class SceneManager : MonoBehaviour
             newPlayer.GetComponent<PlayerProperties>().playerID = i;
             players.Add(newPlayer);
 
-			if(numberOfPlayers == 1){
+			if(numberOfPlayers == 1)
+			{
 				offsetX = -offsetX;
 				SpawnNPC (offsetX);
 			}
@@ -114,10 +115,10 @@ public class SceneManager : MonoBehaviour
 	void SpawnNPC(float offSetX)
 	{
 		newNPC = Instantiate (nonPlayerCharacterRef);
-		newNPC.name = "Non-Player Character";
+		newNPC.name = "Player1";
 
 		newNPC.transform.position = new Vector2 (0 + offSetX, desks [0].transform.position.y);
-		newNPC.GetComponent<NPCProperties> ().npcID = 1;											// This could be changed when the side the NPC is on. 
+		newNPC.GetComponent<PlayerProperties> ().playerID = 1;											// This could be changed when the side the NPC is on. 
 		players.Add (newNPC);
 	}
 	
