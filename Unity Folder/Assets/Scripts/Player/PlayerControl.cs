@@ -162,16 +162,13 @@ public class PlayerControl : MonoBehaviour
 
 	void ChangeComputerFirewallFill(int currentLane){
 		CheckFirewallsInLane ();
-		Debug.Log ("HELLO");
 		if (stopDeterminingFill == false) {
 			playerComputers [currentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
 		}
-		//Debug.Log (playerComputers [currentLane].GetComponentInChildren<Image> ().fillAmount);
 	}
 
 	void CheckFirewallsInLane(){
 		if (GetComponent<PlayerBuilding> ().FirewallsInLane (GetComponent<PlayerMovement> ().CurrentLane) == GetComponent<PlayerBuilding> ().MAX_FIREWALLS_PER_LANE) {
-			Debug.Log ("MAX");
 			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 1;
 			stopDeterminingFill = true;
 		} else {

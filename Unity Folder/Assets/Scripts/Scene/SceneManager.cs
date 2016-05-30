@@ -33,6 +33,8 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
+		runtimeVariables.player0RoundsWon = 0;
+		runtimeVariables.player1RoundsWon = 0;
 		
 		// Check if the player has selected single player mode. 
 		if (runtimeVariables.isSinglePlayerToggled) 
@@ -182,6 +184,8 @@ public class SceneManager : MonoBehaviour
     public void EndOfRound()
     {
     	DetermineRoundWinner();
+    	DetermineGameOver();
+    	
     	ResetPlayerPositions();
     	RemoveAllFirewalls();
     	RemoveAllProjectiles();
@@ -191,7 +195,7 @@ public class SceneManager : MonoBehaviour
     
     void DetermineRoundWinner()
     {
-		int tempWinnerID = 10;
+		int tempWinnerID = 0;
 		float healthComparison = 0f;
 		for (int i = 0; i < 2; ++i)
 		{
@@ -203,7 +207,19 @@ public class SceneManager : MonoBehaviour
 			}
 		}
 		
-		print("Player" + (tempWinnerID + 1) + " wins the round!");
+		GameObject.Find("Player" + tempWinnerID + "WinCounter").GetComponent<Image>().enabled = true;	
+		
+		if (tempWinnerID == 0)
+			++runtimeVariables.player0RoundsWon;
+		
+		if (tempWinnerID == 1)
+			++runtimeVariables.player1RoundsWon;
+    }
+    
+    void DetermineGameOver()
+    {
+    	if (runtimeVariables.player0RoundsWon == 2 || runtimeVariables.player1RoundsWon == 2)
+			Application.LoadLevel("EndScene");
     }
     
     void ResetPlayerPositions()
