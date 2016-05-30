@@ -7,6 +7,13 @@ public class SceneManager : MonoBehaviour
 {
     public List<GameObject> players;
     public GameObject playerRef;
+
+	public GameObject nonPlayerCharacterRef;
+
+	private GameObject newNPC = null;
+	private GameObject newPlayer = null;
+
+	private int numberOfPlayers = 2;
     
     public GameObject defenseTriggerRef;
     public List<GameObject> defenseTriggers;
@@ -15,12 +22,9 @@ public class SceneManager : MonoBehaviour
 	public List<GameObject> desks;
 	public GameObject deskRef;
 
-	public GameObject nonPlayerCharacter;								// NEW
-	private RuntimeVariables runtimeVariables;
-
-    
     private bool controlEnabled;
     private float BASE_DEFENSE_TRIGGER_OFFSET_X = 3f;
+	private RuntimeVariables runtimeVariables;
 
     void Start()
     {
@@ -29,6 +33,7 @@ public class SceneManager : MonoBehaviour
         SpawnDesks();
         ZoomCamera();
         SpawnDefenseTriggers();
+		SpawnNPC ();
         SpawnPlayers();  
     }
     
@@ -78,9 +83,9 @@ public class SceneManager : MonoBehaviour
 	{
 		float offsetX = -(desks[0].transform.localScale.x / 2);
 
-		for (int i = 0; i < 2; ++i)
+		for (int i = 0; i < numberOfPlayers; ++i)
 		{
-            GameObject newPlayer = Instantiate(playerRef);
+            newPlayer = Instantiate(playerRef);
             newPlayer.name = "Player" + i;
             
             if (i == 1)
@@ -90,22 +95,25 @@ public class SceneManager : MonoBehaviour
             newPlayer.GetComponent<PlayerProperties>().playerID = i;
             players.Add(newPlayer);
 		}
-
-		// Check if the player has selected single player mode. 
-		if (runtimeVariables.isSinglePlayerToggled)																		/// NEW
-			SpawnNPC (offsetX);
 	}
 
-	void SpawnNPC(float offSetX)
+	void SpawnNPC()
 	{
-		GameObject newNPC = Instantiate (nonPlayerCharacter);
+		// Check if the player has selected single player mode. 
+		if (runtimeVariables.isSinglePlayerToggled) {
+			numberOfPlayers = 1;
+		} else {
+			numberOfPlayers = 2;
+		}
+
+		float offsetX = desks [0].transform.localScale.x / 2;
+
+		newNPC = Instantiate (nonPlayerCharacterRef);
 		newNPC.name = "Non-Player Character";
 
-		newNPC.transform.position = new Vector2 (0 + offSetX, desks [0].transform.position.y);
-		// Give ID (Unneeded)
-		// Add to list. 
-
-		Destroy (players [1]);
+		newNPC.transform.position = new Vector2 (0 + offsetX, desks [0].transform.position.y);
+		newNPC.GetComponent<NPCProperties> ().npcID = 1;											// This could be changed when the side the NPC is on. 
+		players.Add (newNPC);
 	}
 	
 	public int DesksCount
@@ -114,11 +122,19 @@ public class SceneManager : MonoBehaviour
 	}
     
     public void EnablePlayerControl()
-    {
+	{
         foreach (GameObject p in players)
         {
-			if(p != null)
-            	p.GetComponent<PlayerControl>().isControllable = true;
+			if(p == newPlayer)
+				p.GetComponent<PlayerControl>().isControllable = true;
+
+			Debug.Log (p);
+
+
+			if(p == newNPC)
+				newNPC.GetComponent<NPCControl> ().isControllable = true;
+
+			Debug.Log (p);
         }
     }
 }

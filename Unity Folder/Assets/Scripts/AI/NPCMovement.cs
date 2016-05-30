@@ -4,20 +4,23 @@ using System.Collections;
 public class NPCMovement : MonoBehaviour
 {
 	private int currentLane = 0;
+	private int playersLane = 0;
+
 	private int numDesks;
-	public float timer;
-	public const float MAX_TIME = 3.0f; 
+	private bool isNeg;
+	private bool isPos;
+	private float timer;
+	private const float MAX_TIME = 3.0f; 
 
 	public int targetLane;
 	public int amountMoves;
 	public bool isMoving;
 	public bool isWaiting;
-	public bool isNeg;
-	public bool isPos;
-
-
+	
 	void Start()
 	{
+		//playerID = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControl> ().GetPlayerID;
+		playersLane = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement> ().CurrentLane;
 		numDesks = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().DesksCount;
 		isMoving = false;
 	}
@@ -25,7 +28,8 @@ public class NPCMovement : MonoBehaviour
 	public void Movement(GameObject npcObject)
 	{
 		if (!isMoving) {
-			targetLane = GenerateRandomNum ();			// Generate a random number
+		//	targetLane = GenerateRandomNum ();			// Generate a random number
+			targetLane = playersLane;
 			amountMoves = targetLane - currentLane;		// Get the number of moves to make
 
 			// Get the direction to move in. 
@@ -71,7 +75,6 @@ public class NPCMovement : MonoBehaviour
 			++currentLane;
 		}
 	}
-
 
 	int GenerateRandomNum()
 	{

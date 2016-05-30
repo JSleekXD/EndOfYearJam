@@ -116,4 +116,9 @@ public class PlayerControl : MonoBehaviour
 			firewallTimer = 0f;
 		}
     }
+
+	public int GetPlayerID
+	{
+		get { return playerID; }
+	}
 }
