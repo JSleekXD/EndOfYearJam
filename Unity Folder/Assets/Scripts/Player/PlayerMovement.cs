@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour 
 {
+	public GameObject nonPlayerCharacter;
+
 	private int currentLane = 0;
     private int numDesks;		
 
@@ -18,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
         
         TranslatePlayerY(player, 2f);
         ++currentLane;
+
+		AddLaneToList (currentLane);
     }
     
     public void MovePlayerDown(GameObject player)
@@ -27,8 +31,18 @@ public class PlayerMovement : MonoBehaviour
         
         TranslatePlayerY(player, -2f);
         --currentLane;
+
+		AddLaneToList (currentLane);
     }
-    
+
+	private void AddLaneToList(int lane)
+	{
+		if (nonPlayerCharacter != null) {
+			nonPlayerCharacter.GetComponent<NPCMovement> ().targetLanes.Add (lane);
+			Debug.Log("LaneADDED");
+		}
+	}
+
 	private void TranslatePlayerY(GameObject player, float amount)
 	{
 		player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + amount, 0);

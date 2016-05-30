@@ -29,11 +29,17 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
+		
+		// Check if the player has selected single player mode. 
+		if (runtimeVariables.isSinglePlayerToggled) {
+			numberOfPlayers = 1;
+		} else {
+			numberOfPlayers = 2;
+		}
 
         SpawnDesks();
         ZoomCamera();
         SpawnDefenseTriggers();
-		SpawnNPC ();
         SpawnPlayers();  
     }
     
@@ -94,27 +100,23 @@ public class SceneManager : MonoBehaviour
 			newPlayer.transform.position = new Vector2 (0 + offsetX, desks[0].transform.position.y);
             newPlayer.GetComponent<PlayerProperties>().playerID = i;
             players.Add(newPlayer);
+
+			if(numberOfPlayers == 1){
+				offsetX = -offsetX;
+				SpawnNPC (offsetX);
+			}
 		}
 		if (newPlayer.GetComponent<PlayerProperties> ().playerID == 1) {
 			newPlayer.transform.localEulerAngles = new Vector3(0,0,180);
 		}
 	}
 
-	void SpawnNPC()
+	void SpawnNPC(float offSetX)
 	{
-		// Check if the player has selected single player mode. 
-		if (runtimeVariables.isSinglePlayerToggled) {
-			numberOfPlayers = 1;
-		} else {
-			numberOfPlayers = 2;
-		}
-
-		float offsetX = desks [0].transform.localScale.x / 2;
-
 		newNPC = Instantiate (nonPlayerCharacterRef);
 		newNPC.name = "Non-Player Character";
 
-		newNPC.transform.position = new Vector2 (0 + offsetX, desks [0].transform.position.y);
+		newNPC.transform.position = new Vector2 (0 + offSetX, desks [0].transform.position.y);
 		newNPC.GetComponent<NPCProperties> ().npcID = 1;											// This could be changed when the side the NPC is on. 
 		players.Add (newNPC);
 	}
@@ -124,43 +126,14 @@ public class SceneManager : MonoBehaviour
 		get { return desks.Count; }
 	}
     
-    public void EnablePlayerControl(bool value)
+    public void EnablePlayerControl()
 	{
         foreach (GameObject p in players)
         {
-			if(p == newPlayer)
-				p.GetComponent<PlayerControl>().isControllable = value;
-
-			Debug.Log (p);
-
-
-			if(p == newNPC)
-				newNPC.GetComponent<NPCControl>().isControllable = value;
-
-			Debug.Log (p);
+			if(p.gameObject.tag == "Player")
+				p.GetComponent<PlayerControl>().isControllable = true;
+			if(p.gameObject.tag == "NPC")
+				newNPC.GetComponent<NPCControl> ().isControllable = true;
         }
-    }
-    
-    public void EndOfRound()
-    {
-    	DetermineRoundWinner();
-
-    }
-    
-    void DetermineRoundWinner()
-    {
-		int tempWinnerID = 10;
-		float healthComparison = 0f;
-		for (int i = 0; i < 2; ++i)
-		{
-			PlayerDefense defenseRef = defenseTriggers[i].GetComponent<PlayerDefense>();
-			if (defenseRef.defenseHealthCurrent > healthComparison)
-			{
-				healthComparison = defenseRef.defenseHealthCurrent;
-				tempWinnerID = i;
-			}
-		}
-		
-		print("Player" + (tempWinnerID + 1) + " wins the round!");
     }
 }
