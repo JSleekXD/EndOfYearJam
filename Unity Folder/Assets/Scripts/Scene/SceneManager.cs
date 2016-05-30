@@ -29,11 +29,17 @@ public class SceneManager : MonoBehaviour
     void Start()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
+		
+		// Check if the player has selected single player mode. 
+		if (runtimeVariables.isSinglePlayerToggled) {
+			numberOfPlayers = 1;
+		} else {
+			numberOfPlayers = 2;
+		}
 
         SpawnDesks();
         ZoomCamera();
         SpawnDefenseTriggers();
-		SpawnNPC ();
         SpawnPlayers();  
     }
     
@@ -94,24 +100,20 @@ public class SceneManager : MonoBehaviour
 			newPlayer.transform.position = new Vector2 (0 + offsetX, desks[0].transform.position.y);
             newPlayer.GetComponent<PlayerProperties>().playerID = i;
             players.Add(newPlayer);
+
+			if(numberOfPlayers == 1){
+				offsetX = -offsetX;
+				SpawnNPC (offsetX);
+			}
 		}
 	}
 
-	void SpawnNPC()
+	void SpawnNPC(float offSetX)
 	{
-		// Check if the player has selected single player mode. 
-		if (runtimeVariables.isSinglePlayerToggled) {
-			numberOfPlayers = 1;
-		} else {
-			numberOfPlayers = 2;
-		}
-
-		float offsetX = desks [0].transform.localScale.x / 2;
-
 		newNPC = Instantiate (nonPlayerCharacterRef);
 		newNPC.name = "Non-Player Character";
 
-		newNPC.transform.position = new Vector2 (0 + offsetX, desks [0].transform.position.y);
+		newNPC.transform.position = new Vector2 (0 + offSetX, desks [0].transform.position.y);
 		newNPC.GetComponent<NPCProperties> ().npcID = 1;											// This could be changed when the side the NPC is on. 
 		players.Add (newNPC);
 	}
@@ -125,16 +127,10 @@ public class SceneManager : MonoBehaviour
 	{
         foreach (GameObject p in players)
         {
-			if(p == newPlayer)
+			if(p.gameObject.tag == "Player")
 				p.GetComponent<PlayerControl>().isControllable = true;
-
-			Debug.Log (p);
-
-
-			if(p == newNPC)
+			if(p.gameObject.tag == "NPC")
 				newNPC.GetComponent<NPCControl> ().isControllable = true;
-
-			Debug.Log (p);
         }
     }
 }

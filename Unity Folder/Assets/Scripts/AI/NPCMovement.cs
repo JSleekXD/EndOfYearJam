@@ -1,26 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NPCMovement : MonoBehaviour
 {
 	private int currentLane = 0;
-	private int playersLane = 0;
-
 	private int numDesks;
 	private bool isNeg;
 	private bool isPos;
 	private float timer;
 	private const float MAX_TIME = 3.0f; 
 
-	public int targetLane;
+	public List<int> targetLanes = new List<int>();
+
+	public int targetPos;
 	public int amountMoves;
 	public bool isMoving;
 	public bool isWaiting;
 	
 	void Start()
 	{
-		//playerID = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerControl> ().GetPlayerID;
-		playersLane = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement> ().CurrentLane;
 		numDesks = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().DesksCount;
 		isMoving = false;
 	}
@@ -28,9 +27,9 @@ public class NPCMovement : MonoBehaviour
 	public void Movement(GameObject npcObject)
 	{
 		if (!isMoving) {
-		//	targetLane = GenerateRandomNum ();			// Generate a random number
-			targetLane = playersLane;
-			amountMoves = targetLane - currentLane;		// Get the number of moves to make
+			targetPos = GenerateRandomNum ();			// Generate a random number
+		//	targetPos = targetLanes[0];
+			amountMoves = targetPos - currentLane;		// Get the number of moves to make
 
 			// Get the direction to move in. 
 			if (amountMoves < 0) {
@@ -43,7 +42,7 @@ public class NPCMovement : MonoBehaviour
 		}
 
 		// When the NPC reaches the destination. 
-		if (targetLane == currentLane) {
+		if (targetPos == currentLane) {
 			isMoving = false;
 			isWaiting = true;
 			return;
