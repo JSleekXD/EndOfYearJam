@@ -89,22 +89,21 @@ public class PlayerControl : MonoBehaviour
     {
 		if (Input.GetKeyDown(ActionMoveUp) && !isPlayerBuildingFirewall)
         {
-			npcRef.AddAction(ActionMoveUp);
+			PassActionToNPC(ActionMoveUp);
 
             playerMovement.MovePlayerUp(playerObj);
-			//npc.AddAction(MovingUp);
         }
         
 		if (Input.GetKeyDown(ActionMoveDown) && !isPlayerBuildingFirewall)
         {
-			npcRef.AddAction(ActionMoveDown);
+			PassActionToNPC(ActionMoveDown);
 
             playerMovement.MovePlayerDown(playerObj);
         }
         
         if (Input.GetKeyDown(ActionShoot))
         {
-			npcRef.AddAction(ActionShoot);
+			PassActionToNPC(ActionShoot);
 
             playerShooting.ShootProjectile(playerObj, playerID);
         }
@@ -112,7 +111,7 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetKey(ActionBuildFirewall))
         {
 			if (Input.GetKeyDown (ActionBuildFirewall))
-				npcRef.AddAction(ActionBuildFirewall);
+				PassActionToNPC(ActionBuildFirewall);
 
 			isPlayerBuildingFirewall = true;
 			firewallTimer+=Time.deltaTime;
@@ -120,11 +119,10 @@ public class PlayerControl : MonoBehaviour
 			{
 				playerBuilding.HandleBuild(playerObj, playerID, playerMovement.CurrentLane);
 				firewallTimer = 0f;
-			}
-
-          
+			}  
         }
-		else{
+		else
+		{
 			isPlayerBuildingFirewall = false;
 			firewallTimer = 0f;
 		}
@@ -133,6 +131,14 @@ public class PlayerControl : MonoBehaviour
 	public int GetPlayerID
 	{
 		get { return playerID; }
+	}
+
+	void PassActionToNPC(KeyCode key)
+	{
+		if (!npcRef)
+			return;
+
+		npcRef.AddAction(key);
 	}
 
 	public void SetNPCref(NPCControl reference)

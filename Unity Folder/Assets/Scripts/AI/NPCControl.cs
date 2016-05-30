@@ -65,9 +65,6 @@ public class NPCControl : MonoBehaviour
 				timer -= Time.deltaTime;
 			}
 		}
-
-	
-
 	}
 	
 	void ProcessActions(KeyCode key)
