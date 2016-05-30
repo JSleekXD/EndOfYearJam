@@ -126,13 +126,13 @@ public class SceneManager : MonoBehaviour
         foreach (GameObject p in players)
         {
 			if(p == newPlayer)
-				p.GetComponent<PlayerControl>().isControllable = true;
+				p.GetComponent<PlayerControl>().isControllable = value;
 
 			Debug.Log (p);
 
 
 			if(p == newNPC)
-				newNPC.GetComponent<NPCControl> ().isControllable = true;
+				newNPC.GetComponent<NPCControl>().isControllable = value;
 
 			Debug.Log (p);
         }
