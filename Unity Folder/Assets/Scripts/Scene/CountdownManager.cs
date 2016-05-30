@@ -4,34 +4,64 @@ using System.Collections;
 
 public class CountdownManager : MonoBehaviour 
 {
+	private SceneManager sceneManager;
     private Text countdownText;
     private AudioSource source;
     public AudioClip beep;
     public AudioClip beepEnd;
+    private bool isCountdownFinished = false;
+    private bool isRoundFinished = false;
     
     public float countdownFrom = 3f;
     private float currentTime = 0f;
     
-    private SceneManager sceneManager;
-    
+    public float roundTime = 60f;
+    private float timer;
+        
 	void Start() 
     {
+    	sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
 	    countdownText = GameObject.Find("CountdownText").GetComponent<Text>();
         source = GetComponent<AudioSource>();
         
         currentTime = countdownFrom;
         StartCoroutine(Countdown(currentTime));
+        
+        timer = roundTime;
 	}
 	
 	void Update() 
     {
-        UpdateText();
+    	if (isRoundFinished)
+    		return;
+    		
+    	if (!isCountdownFinished)
+    	{
+        	UpdateCountdownText();
+        	return;
+        }
+        
+		if (timer > 0)
+		{
+			timer -= Time.deltaTime;
+		} else {
+			isRoundFinished = true;
+			sceneManager.EndOfRound();
+		}
+			
+    	UpdateRoundText();
 	}
     
-    void UpdateText()
+    void UpdateCountdownText()
     {
         countdownText.text = currentTime.ToString();
         countdownText.color = currentTime <= 5.0f && Mathf.Floor(currentTime) % 2 != 0 ? Color.red : Color.black;
+    }
+    
+    void UpdateRoundText()
+    {
+		countdownText.text = Mathf.Round(timer).ToString();
+		countdownText.color = Color.red;
     }
     
     private IEnumerator Countdown(float _time)
@@ -43,10 +73,9 @@ public class CountdownManager : MonoBehaviour
             source.PlayOneShot(beepEnd);
             countdownText.color = Color.white;
             
-            GameObject.Find("SceneManager").GetComponent<SceneManager>().EnablePlayerControl();
+            GameObject.Find("SceneManager").GetComponent<SceneManager>().EnablePlayerControl(true);
             
-            Destroy(gameObject, 1f);
-            Destroy(countdownText.gameObject, 1f);
+            isCountdownFinished = true;
         }
         else if (_time <= 5.0f)
         {
@@ -58,6 +87,6 @@ public class CountdownManager : MonoBehaviour
             --_time; 
             currentTime = _time; 
             StartCoroutine(Countdown(currentTime));
-        }        
+        }
     }
 }
