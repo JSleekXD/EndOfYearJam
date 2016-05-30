@@ -30,6 +30,8 @@ public class SceneManager : MonoBehaviour
 	public List<GameObject> leftComputers;
 	public List<GameObject> rightComputers;
 
+	public GameObject roundOverText;
+
     void Start()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
@@ -183,15 +185,30 @@ public class SceneManager : MonoBehaviour
 	
     public void EndOfRound()
     {
-    	DetermineRoundWinner();
-    	DetermineGameOver();
-    	
-    	ResetPlayerPositions();
+		roundOverText.GetComponent<Text> ().text = "ROUND OVER";
+		DetermineRoundWinner();
+
+		ResetComputerScreens ();
+		ResetPlayerPositions();
     	RemoveAllFirewalls();
     	RemoveAllProjectiles();
     	ResetDefense();
-    	ResetCountdown();
+		//wait for 2 seconds
+		StartCoroutine(WaitAfterRoundFinished(2.0f));
+    	
     }
+
+	private IEnumerator WaitAfterRoundFinished(float time){
+		//stop the background music
+		//play the round end music
+		roundOverText.SetActive (true);
+		EnablePlayerControl (false);
+		yield return new WaitForSeconds (time);
+		DetermineGameOver();
+		//disable round over text
+		roundOverText.SetActive (false);
+		ResetCountdown();
+	}
     
     void DetermineRoundWinner()
     {
@@ -205,6 +222,13 @@ public class SceneManager : MonoBehaviour
 				healthComparison = defenseRef.defenseHealthCurrent;
 				tempWinnerID = i;
 			}
+		}
+		PlayerDefense player0DefenseRef = defenseTriggers [0].GetComponent<PlayerDefense> ();
+		PlayerDefense player1DefenseRef = defenseTriggers [1].GetComponent<PlayerDefense> ();
+
+		if (player0DefenseRef.defenseHealthCurrent == player1DefenseRef.defenseHealthCurrent) {
+			roundOverText.GetComponent<Text>().text = "TIE!";
+			return;
 		}
 		
 		GameObject.Find("Player" + tempWinnerID + "WinCounter").GetComponent<Image>().enabled = true;	
@@ -249,6 +273,15 @@ public class SceneManager : MonoBehaviour
     		player.GetComponent<PlayerBuilding>().RemoveAllFirewalls();
     	}
     }
+
+	void ResetComputerScreens(){
+		for (int i = 0; i < leftComputers.Count; i++) {
+			leftComputers[i].transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
+		}
+		for (int i = 0; i < rightComputers.Count; i++) {
+			rightComputers[i].transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
+		}
+	}
     
     void ResetDefense()
     {
