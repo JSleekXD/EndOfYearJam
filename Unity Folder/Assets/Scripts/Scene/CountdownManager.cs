@@ -24,10 +24,7 @@ public class CountdownManager : MonoBehaviour
 	    countdownText = GameObject.Find("CountdownText").GetComponent<Text>();
         source = GetComponent<AudioSource>();
         
-        currentTime = countdownFrom;
-        StartCoroutine(Countdown(currentTime));
-        
-        timer = roundTime;
+		Reset();
 	}
 	
 	void Update() 
@@ -88,5 +85,17 @@ public class CountdownManager : MonoBehaviour
             currentTime = _time; 
             StartCoroutine(Countdown(currentTime));
         }
+    }
+    
+    public void Reset()
+    {
+    	sceneManager.EnablePlayerControl(false);
+    	
+    	isCountdownFinished = false;
+    	isRoundFinished = false;
+		timer = roundTime;
+		currentTime = countdownFrom;
+		
+		StartCoroutine(Countdown(currentTime));
     }
 }

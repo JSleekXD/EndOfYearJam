@@ -61,9 +61,22 @@ public class PlayerBuilding : MonoBehaviour
         firewalls[currentLane].Add(newFirewall);
     }
     
-    public void RemoveWall(GameObject wall, int lane)
+    public void RemoveFirewall(GameObject wall, int lane)
     {
         firewalls[lane].Remove(wall);        
         Destroy(wall);
     }
+    
+	public void RemoveAllFirewalls()
+	{
+		foreach (List<GameObject> list in firewalls)
+		{
+			foreach (GameObject wall in list)
+			{
+				Destroy(wall);
+			}
+			
+			list.Clear();
+		}
+	}
 }

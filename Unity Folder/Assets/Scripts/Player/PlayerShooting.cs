@@ -34,4 +34,14 @@ public class PlayerShooting : MonoBehaviour
 		projectiles.Remove(projectile);
 		Destroy(projectile);
 	}
+	
+	public void RemoveAllProjectiles()
+	{
+		foreach (GameObject projectile in projectiles)
+		{
+			Destroy(projectile);
+		}
+		
+		projectiles.Clear();
+	}
 }

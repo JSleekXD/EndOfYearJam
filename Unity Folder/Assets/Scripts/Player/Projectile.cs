@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Projectile : MonoBehaviour 
@@ -24,16 +24,12 @@ public class Projectile : MonoBehaviour
 				return;
 		}
         
-		if (otherTag == "Projectile") {
-		if(other.gameObject.GetComponent<Projectile>().playerID == playerID){
+		if (otherTag == "Projectile")
+		{
+			if(other.gameObject.GetComponent<Projectile>().playerID == playerID)
 				return;
-			}
-			else{
-			
-			}
 		}
          
-        
         if (otherTag == "Firewall")
         {
             // Ignore collisions with firewalls created by the shooting player
@@ -42,7 +38,7 @@ public class Projectile : MonoBehaviour
             
             // Determine which player owns the firewall and remove it from their list
             int targetID = playerID == 0 ? 1 : 0;
-            GameObject.Find("Player" + targetID).GetComponent<PlayerBuilding>().RemoveWall(other.gameObject, currentLane);
+            GameObject.Find("Player" + targetID).GetComponent<PlayerBuilding>().RemoveFirewall(other.gameObject, currentLane);
         }   
 
         GameObject.Find("Player" + playerID).GetComponent<PlayerShooting>().RemoveProjectile(gameObject);

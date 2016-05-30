@@ -121,7 +121,7 @@ public class SceneManager : MonoBehaviour
 	void SpawnPlayers()
 	{
 		float offsetX = -(desks[0].transform.localScale.x / 2);
-
+		
 		for (int i = 0; i < numberOfPlayers; ++i)
 		{
             newPlayer = Instantiate(playerRef);
@@ -179,6 +179,11 @@ public class SceneManager : MonoBehaviour
     public void EndOfRound()
     {
     	DetermineRoundWinner();
+    	ResetPlayerPositions();
+    	RemoveAllFirewalls();
+    	RemoveAllProjectiles();
+    	ResetDefense();
+    	ResetCountdown();
     }
     
     void DetermineRoundWinner()
@@ -197,4 +202,47 @@ public class SceneManager : MonoBehaviour
 		
 		print("Player" + (tempWinnerID + 1) + " wins the round!");
     }
+    
+    void ResetPlayerPositions()
+    {
+		float offsetX = -(desks[0].transform.localScale.x / 2);
+		for (int i = 0; i < 2; ++i)
+		{
+			if (i == 1)
+				offsetX = -offsetX;
+				
+			players[i].GetComponent<PlayerMovement>().MoveToLane(0);
+		}
+    }
+    
+    void RemoveAllProjectiles()
+    {
+		foreach (GameObject player in players)
+		{
+			player.GetComponent<PlayerShooting>().RemoveAllProjectiles();
+		}
+    }
+    
+    void RemoveAllFirewalls()
+    {
+    	foreach (GameObject player in players)
+    	{
+    		player.GetComponent<PlayerBuilding>().RemoveAllFirewalls();
+    	}
+    }
+    
+    void ResetDefense()
+    {
+    	foreach (GameObject trigger in defenseTriggers)
+    	{
+    		trigger.GetComponent<PlayerDefense>().Reset();
+    	}
+    }
+    
+    void ResetCountdown()
+    {
+    	GameObject.Find("CountdownManager").GetComponent<CountdownManager>().Reset();
+    }
 }
+
+

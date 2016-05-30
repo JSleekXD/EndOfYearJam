@@ -10,12 +10,13 @@ public class PlayerDefense : MonoBehaviour
 
 	void Start() 
 	{
+		sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+		
 		Reset();
 	}
 
-	void Reset()
+	public void Reset()
 	{
-		sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
 		projectileDamage = defenseHealthMax / (sceneManager.DesksCount * 2);
 		defenseHealthCurrent = defenseHealthMax;
 	}
@@ -32,7 +33,7 @@ public class PlayerDefense : MonoBehaviour
 		if (defenseHealthCurrent <= 0)
 		{
             RuntimeVariables.GetInstance().lastPlayerToWin = projectileID;
-            Application.LoadLevel("EndScene");
+            sceneManager.EndOfRound();
 		}
 	}
 }

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentLane == numDesks - 1)
             return;
         
-        TranslatePlayerY(player, 2f);
+        TranslatePlayerY(2f);
         ++currentLane;
     }
     
@@ -25,17 +25,27 @@ public class PlayerMovement : MonoBehaviour
         if (currentLane == 0)
             return;
         
-        TranslatePlayerY(player, -2f);
+        TranslatePlayerY(-2f);
         --currentLane;
     }
 
-	private void TranslatePlayerY(GameObject player, float amount)
+	private void TranslatePlayerY(float amount)
 	{
-		player.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + amount);
+		gameObject.transform.position = new Vector2(gameObject.transform.position.x, gameObject.transform.position.y + amount);
 	}
-
+	
 	public int CurrentLane
 	{
 		get { return currentLane; }
+	}
+	
+	public void MoveToLane(int lane)
+	{
+		float amountToMove = (currentLane + lane) * 2;
+		if (lane < currentLane)
+			amountToMove = -amountToMove;
+		
+		currentLane = lane;
+		TranslatePlayerY(amountToMove);
 	}
 }
