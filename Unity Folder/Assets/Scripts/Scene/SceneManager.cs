@@ -27,7 +27,8 @@ public class SceneManager : MonoBehaviour
 	private RuntimeVariables runtimeVariables;
 
 	public GameObject computerRef;
-	public List<GameObject> computers;
+	public List<GameObject> leftComputers;
+	public List<GameObject> rightComputers;
 
     void Start()
     {
@@ -68,21 +69,27 @@ public class SceneManager : MonoBehaviour
 	
 
 		GameObject computerParent = GameObject.Find ("Computers");
-		for (int i =0; i < desiredDesks * 2; i++) {
+		for (int i =0; i < desiredDesks; i++) {
 			GameObject newComputer = Instantiate (computerRef);
 			newComputer.name = "Computer" + i;
 			newComputer.transform.SetParent(computerParent.transform);
+			newComputer.transform.localEulerAngles = new Vector3 (0,0,270);
 			//newComputer.transform.position = new Vector2(0, ;
-			computers.Add(newComputer);
+			leftComputers.Add(newComputer);
 		}
-		computerParent.transform.position = new Vector2 (0, 0 - (desiredDesks - 1));
+		for (int i = 0; i < desiredDesks; i++) {
+			GameObject newComputer = Instantiate (computerRef);
+			newComputer.name = "Computer" + i;
+			newComputer.transform.SetParent(computerParent.transform);
+			newComputer.transform.localEulerAngles = new Vector3 (0,0,90);
+			rightComputers.Add(newComputer);
+		}
 
-		for (int i = 0; i < 2; i++) {
-			for(int j = 0; j < desiredDesks; j++){
-			
-				computers[j].transform.position = new Vector2(desks[j].transform.localScale.x/2, desks[j].transform.position.y);
-			}
+		for (int i = 0; i < desiredDesks; i++) {
+			leftComputers[i].transform.position = new Vector2(-desks[i].transform.localScale.x/3f, desks[i].transform.position.y);
+			rightComputers[i].transform.position = new Vector2(desks[i].transform.localScale.x/3f, desks[i].transform.position.y);
 		}
+
 	}
 	
 	void ZoomCamera()
