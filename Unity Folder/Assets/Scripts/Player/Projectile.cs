@@ -7,20 +7,13 @@ public class Projectile : MonoBehaviour
 	private float speed;
     private int currentLane;
 	public AudioManager audioManager;
-    
-<<<<<<< HEAD
+	private PauseManager pauseManager;
+
 	void Start(){
 		audioManager = GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ();
-	}
-=======
-    private PauseManager pauseManager;
-    
-    void Start()
-    {
 		pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
-    }
-    
->>>>>>> origin/master
+	}
+	
 	void Update()
 	{
 		if (pauseManager.paused)
