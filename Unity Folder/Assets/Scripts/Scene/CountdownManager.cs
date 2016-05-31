@@ -41,6 +41,7 @@ public class CountdownManager : MonoBehaviour
 		if (timer > 0)
 		{
 			timer -= Time.deltaTime;
+			Debug.Log(timer);
 		} else {
 			isRoundFinished = true;
 			sceneManager.EndOfRound();
@@ -57,7 +58,8 @@ public class CountdownManager : MonoBehaviour
     
     void UpdateRoundText()
     {
-		countdownText.text = Mathf.Round(timer).ToString();
+		//countdownText.text = timer.ToString("f0");
+		countdownText.text = ((int)timer).ToString ();
 		countdownText.color = Color.red;
     }
     

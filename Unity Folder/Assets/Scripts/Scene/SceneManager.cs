@@ -186,6 +186,7 @@ public class SceneManager : MonoBehaviour
     public void EndOfRound()
     {
 		roundOverText.GetComponent<Text> ().text = "ROUND OVER";
+		GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayRoundOverSound ();
 		DetermineRoundWinner();
 
 		ResetComputerScreens ();
@@ -207,6 +208,7 @@ public class SceneManager : MonoBehaviour
 		DetermineGameOver();
 		//disable round over text
 		roundOverText.SetActive (false);
+		GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager>().StopRoundOverSound ();
 		ResetCountdown();
 	}
     
