@@ -221,10 +221,9 @@ public class SceneManager : MonoBehaviour
     	RemoveAllFirewalls();
     	RemoveAllProjectiles();
     	ResetDefense();
-    	ResetBuildTimers();
-    	
 		//wait for 2 seconds
 		StartCoroutine(WaitAfterRoundFinished(2.0f));
+    	
     }
 
 	private IEnumerator WaitAfterRoundFinished(float time){
@@ -318,14 +317,6 @@ public class SceneManager : MonoBehaviour
     	foreach (GameObject trigger in defenseTriggers)
     	{
     		trigger.GetComponent<PlayerDefense>().Reset();
-    	}
-    }
-    
-    void ResetBuildTimers()
-    {
-    	foreach (GameObject player in players)
-    	{
-    		player.GetComponent<PlayerControl>().ResetBuildTimer();
     	}
     }
     
