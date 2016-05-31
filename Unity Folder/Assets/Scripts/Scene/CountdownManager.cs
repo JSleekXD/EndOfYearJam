@@ -10,7 +10,7 @@ public class CountdownManager : MonoBehaviour
     public AudioClip beep;
     public AudioClip beepEnd;
     private bool isCountdownFinished = false;
-    private bool isRoundFinished = false;
+    public bool isRoundFinished = false;
     
     public float countdownFrom = 3f;
     private float currentTime = 0f;
