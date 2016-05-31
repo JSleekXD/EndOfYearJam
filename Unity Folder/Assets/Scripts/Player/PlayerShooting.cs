@@ -8,6 +8,9 @@ public class PlayerShooting : MonoBehaviour
 	public List<GameObject> projectiles;
     public float projectileSpeed = 0.25f;
     public float offsetFromPlayer = 1f;
+		
+	public float newScaleX = 2.0f;
+	public float newScaleY = 2.0f;
     
     void Start()
     {
@@ -24,6 +27,7 @@ public class PlayerShooting : MonoBehaviour
             return;
 		gameObject.GetComponent<PlayerControl> ().audioManager.PlayShootVirusSound ();
         GameObject projectileInstance = (GameObject)Instantiate(projectile, new Vector3(player.transform.position.x + offsetFromPlayer, player.transform.position.y, player.transform.position.z), player.transform.rotation);
+		projectileInstance.transform.localScale = new Vector2 (newScaleX, newScaleY);
 		projectileInstance.name = "Player" + playerID + "Projectile";
         projectileInstance.GetComponent<Projectile>().SetProperties(playerID, projectileSpeed, player.GetComponent<PlayerMovement>().CurrentLane);
 		projectiles.Add(projectileInstance);
