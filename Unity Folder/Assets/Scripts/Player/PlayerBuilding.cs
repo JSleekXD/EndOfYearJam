@@ -56,7 +56,7 @@ public class PlayerBuilding : MonoBehaviour
         float offsetX = BASE_OFFSET_X + numFirewalls;
         if (playerID == 1)
             offsetX = -offsetX;
-            
+		transform.Find("PlayerAudioManager").gameObject.GetComponent<PlayerAudioManager> ().PlayFirewallPlacedSound ();
         GameObject newFirewall = Instantiate(firewallRef);
         newFirewall.name = "Player" + playerID + "Firewall";
         newFirewall.transform.position = new Vector2(gameObject.transform.position.x + offsetX, gameObject.transform.position.y);
