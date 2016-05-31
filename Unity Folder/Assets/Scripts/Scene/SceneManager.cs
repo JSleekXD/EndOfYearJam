@@ -268,14 +268,23 @@ public class SceneManager : MonoBehaviour
 	
 	void EnableScore(int tempWinnerID)
 	{
-		GameObject.Find("Player" + tempWinnerID + "WinCounter0").GetComponent<Image>().enabled = true;	
-		GameObject.Find("Player" + tempWinnerID + "WinCounter1").GetComponent<Image>().enabled = true;	
-		
+		// ADD ON SCORE
 		if (tempWinnerID == 0)
 			++runtimeVariables.player0RoundsWon;
 		
 		if (tempWinnerID == 1)
 			++runtimeVariables.player1RoundsWon;
+
+		// DISPLAY SCORE
+		if (runtimeVariables.player0RoundsWon == 2 
+		    || runtimeVariables.player1RoundsWon == 2) 
+		{
+			GameObject.Find ("Player" + tempWinnerID + "WinCounter1").GetComponent<Image> ().enabled = true;	
+		}
+		else
+		{
+			GameObject.Find ("Player" + tempWinnerID + "WinCounter0").GetComponent<Image> ().enabled = true;	
+		}
 	}
     
     void DetermineGameOver()
