@@ -25,6 +25,8 @@ public class PlayerControl : MonoBehaviour
 	public List<GameObject> playerComputers;
 	private bool stopDeterminingFill = false;
 
+	public PlayerAudioManager audioManager;
+
 
 	private NPCControl npcRef;
     
@@ -36,7 +38,8 @@ public class PlayerControl : MonoBehaviour
         playerShooting = GetComponent<PlayerShooting>();
         playerBuilding = GetComponent<PlayerBuilding>();
         runtimeVariables = RuntimeVariables.GetInstance();
-                    
+		//audioManager = transform.Find("PlayerAudioManager").transform.GetComponent<PlayerAudioManager> ();
+		audioManager.StopFirewallBuildingSound ();
         SetupControls();
 		SetupComputers ();
     }
@@ -154,6 +157,7 @@ public class PlayerControl : MonoBehaviour
         }
 		else
 		{
+			audioManager.StopFirewallBuildingSound ();
 		//	playerComputers [GetComponent<PlayerMovement>().CurrentLane].GetComponentInChildren<Image> ().fillAmount = 0;
 
 				ResetBuildTimer();
@@ -163,7 +167,11 @@ public class PlayerControl : MonoBehaviour
 	void ChangeComputerFirewallFill(int currentLane){
 		CheckFirewallsInLane ();
 		if (stopDeterminingFill == false) {
+			//Debug.Log ("CALLED");
+			audioManager.PlayFirewallBuildingSound ();
 			playerComputers [currentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
+		} else {
+			audioManager.StopFirewallBuildingSound ();
 		}
 	}
 
@@ -171,6 +179,7 @@ public class PlayerControl : MonoBehaviour
 		if (GetComponent<PlayerBuilding> ().FirewallsInLane (GetComponent<PlayerMovement> ().CurrentLane) == GetComponent<PlayerBuilding> ().MAX_FIREWALLS_PER_LANE) {
 			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 1;
 			stopDeterminingFill = true;
+			audioManager.StopFirewallBuildingSound ();
 		} else {
 			stopDeterminingFill = false;
 		}
@@ -178,6 +187,8 @@ public class PlayerControl : MonoBehaviour
     
     public void ResetBuildTimer()
     {
+
+
 		isPlayerBuildingFirewall = false;
 		firewallTimer = 0f;
 		CheckFirewallsInLane ();
