@@ -29,6 +29,8 @@ public class SceneManager : MonoBehaviour
 	public GameObject computerRef;
 	public List<GameObject> leftComputers;
 	public List<GameObject> rightComputers;
+	
+	public GameObject stationRef;
 
 	public GameObject roundOverText;
 
@@ -47,7 +49,7 @@ public class SceneManager : MonoBehaviour
 		}
 
         SpawnDesks();
-		SpawnComputers ();
+		SpawnComputers();
         ZoomCamera();
         SpawnDefenseTriggers();
         SpawnPlayers();  
@@ -69,34 +71,59 @@ public class SceneManager : MonoBehaviour
 		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1));
 	}
 
-	void SpawnComputers(){
+	void SpawnComputers()
+	{
+		GameObject computerParent = GameObject.Find("Computers");
+		GameObject stationParent = GameObject.Find("Stations");
+		
+		for (int i = 0; i < desiredDesks; i++) 
+		{
+			SpawnComputer(computerParent, stationParent, i, leftComputers, 270);
+		}
+		
+		for (int i = 0; i < desiredDesks; i++) 
+		{
+			SpawnComputer(computerParent, stationParent, i, rightComputers, 90);
+		}
+	}
 	
-
-		GameObject computerParent = GameObject.Find ("Computers");
-		for (int i =0; i < desiredDesks; i++) {
-			GameObject newComputer = Instantiate (computerRef);
-			newComputer.name = "Computer" + i;
-			newComputer.transform.SetParent(computerParent.transform);
-			newComputer.transform.localEulerAngles = new Vector3 (0,0,270);
-			newComputer.transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
-			//newComputer.transform.position = new Vector2(0, ;
-			leftComputers.Add(newComputer);
+	void SpawnComputer(GameObject computerParent, GameObject stationParent, int i, List<GameObject> list, float rotationZ)
+	{
+		GameObject newComputer = Instantiate(computerRef);
+		newComputer.name = "Computer" + i;
+		newComputer.transform.SetParent(computerParent.transform);
+		newComputer.transform.localEulerAngles = new Vector3(0, 0, rotationZ);
+		newComputer.transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
+		list.Add(newComputer);
+		
+		int tempSide = 0;
+		float tempOffsetX = -((desks[0].transform.localScale.x / 2) - 1.9f);
+		if (list == leftComputers)
+		{
+			tempSide = 0;
 		}
-		for (int i = 0; i < desiredDesks; i++) {
-			GameObject newComputer = Instantiate (computerRef);
-			newComputer.name = "Computer" + i;
-			newComputer.transform.SetParent(computerParent.transform);
-			newComputer.transform.localEulerAngles = new Vector3 (0,0,90);
-			newComputer.transform.Find("ComputerScreenFirewall").transform.GetComponent<Image>().fillAmount = 0;
-			rightComputers.Add(newComputer);
+		else
+		{
+			tempSide = 1;
+			tempOffsetX = -tempOffsetX;
 		}
-
-		for (int i = 0; i < desiredDesks; i++) {
-			leftComputers[i].transform.position = new Vector2(-desks[i].transform.localScale.x/3f, desks[i].transform.position.y);
-			rightComputers[i].transform.position = new Vector2(desks[i].transform.localScale.x/3f, desks[i].transform.position.y);
-		}
-		//computerParent.transform.position = new Vector2 (0, 0 - (desiredDesks - 1));
-
+		
+		newComputer.transform.position = new Vector2(tempOffsetX, desks[i].transform.position.y);
+		SpawnStation(stationParent, newComputer.transform, tempSide, rotationZ);
+	}
+	
+	void SpawnStation(GameObject stationParent, Transform newComputer, int side, float rotationZ)
+	{
+		GameObject newStation = Instantiate(stationRef);
+		newStation.name = "Station";
+		newStation.transform.SetParent(stationParent.transform);
+		newStation.transform.localEulerAngles = new Vector3(0, 0, rotationZ);
+		
+		float tempOffsetX = 1.9f;
+		if (side == 1)
+			tempOffsetX = -tempOffsetX;
+			
+		newStation.transform.position = new Vector2(newComputer.position.x - tempOffsetX, newComputer.position.y);
 	}
 	
 	void ZoomCamera()
