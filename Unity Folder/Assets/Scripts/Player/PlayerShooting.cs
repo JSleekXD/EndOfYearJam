@@ -22,7 +22,7 @@ public class PlayerShooting : MonoBehaviour
 	{
         if (projectiles.Count >= 3)
             return;
-
+		gameObject.GetComponent<PlayerControl> ().audioManager.PlayShootVirusSound ();
         GameObject projectileInstance = (GameObject)Instantiate(projectile, new Vector3(player.transform.position.x + offsetFromPlayer, player.transform.position.y, player.transform.position.z), player.transform.rotation);
 		projectileInstance.name = "Player" + playerID + "Projectile";
         projectileInstance.GetComponent<Projectile>().SetProperties(playerID, projectileSpeed, player.GetComponent<PlayerMovement>().CurrentLane);

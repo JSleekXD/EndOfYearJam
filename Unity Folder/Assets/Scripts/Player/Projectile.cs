@@ -6,7 +6,11 @@ public class Projectile : MonoBehaviour
 	private int playerID;
 	private float speed;
     private int currentLane;
+	public AudioManager audioManager;
     
+	void Start(){
+		audioManager = GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ();
+	}
 	void Update()
 	{
 		gameObject.transform.position = new Vector2(gameObject.transform.position.x + speed, gameObject.transform.position.y);
@@ -26,9 +30,13 @@ public class Projectile : MonoBehaviour
         
 		if (otherTag == "Projectile")
 		{
+
 			if(other.gameObject.GetComponent<Projectile>().playerID == playerID)
 				return;
+			audioManager.PlayVirusHitVirusSound();
+
 		}
+
          
         if (otherTag == "Firewall")
         {

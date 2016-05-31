@@ -138,6 +138,7 @@ public class PlayerControl : MonoBehaviour
 			PassActionToNPC(ActionShoot);
 
             playerShooting.ShootProjectile(playerObj, playerID);
+		
         }
         
         if (Input.GetKey(ActionBuildFirewall))

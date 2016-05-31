@@ -68,7 +68,7 @@ public class CountdownManager : MonoBehaviour
         
         if (_time <= 0)
         {
-            source.PlayOneShot(beepEnd);
+			source.PlayOneShot(beepEnd, 0.5f);
             countdownText.color = Color.white;
             
             GameObject.Find("SceneManager").GetComponent<SceneManager>().EnablePlayerControl(true);
@@ -77,7 +77,8 @@ public class CountdownManager : MonoBehaviour
         }
         else if (_time <= 5.0f)
         {
-            source.PlayOneShot(beep);
+            source.PlayOneShot(beep, 0.5f);
+
         }
         
         if (_time > 0) 
