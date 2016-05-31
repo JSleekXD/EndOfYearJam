@@ -4,11 +4,14 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour 
 {
 	private int currentLane = 0;
-    private int numDesks;		
+    private int numDesks;
+    private float distanceToMove;
 
     void Start()
     {
-        numDesks = GameObject.Find("SceneManager").GetComponent<SceneManager>().DesksCount;
+    	SceneManager sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        numDesks = sceneManager.DesksCount;
+        distanceToMove = sceneManager.BASE_DESK_OFFSET_Y;
     }
     
     public void MovePlayerUp(GameObject player)
@@ -16,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentLane == numDesks - 1)
             return;
         
-        TranslatePlayerY(2f);
+        TranslatePlayerY(distanceToMove);
         ++currentLane;
     }
     
@@ -25,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         if (currentLane == 0)
             return;
         
-        TranslatePlayerY(-2f);
+        TranslatePlayerY(-distanceToMove);
         --currentLane;
     }
 
@@ -41,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 	
 	public void MoveToLane(int lane)
 	{
-		float amountToMove = (currentLane + lane) * 2;
+		float amountToMove = (currentLane + lane) * 1.5f;
 		if (lane < currentLane)
 			amountToMove = -amountToMove;
 		

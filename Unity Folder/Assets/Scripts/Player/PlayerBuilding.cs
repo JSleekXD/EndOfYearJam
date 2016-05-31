@@ -10,7 +10,8 @@ public class PlayerBuilding : MonoBehaviour
     public int currentFirewalls = 0;
     
     public  int MAX_FIREWALLS_PER_LANE = 3;
-    private float BASE_OFFSET_X = 3.5f;
+    private float BASE_OFFSET_X = 2.5f;
+    private float FIREWALL_SPACING = 0.5f;
     
 	void Start() 
 	{
@@ -53,7 +54,7 @@ public class PlayerBuilding : MonoBehaviour
         if (numFirewalls == MAX_FIREWALLS_PER_LANE)
             return;
         
-        float offsetX = BASE_OFFSET_X + numFirewalls;
+        float offsetX = BASE_OFFSET_X + (numFirewalls * FIREWALL_SPACING);
         if (playerID == 1)
             offsetX = -offsetX;
 		transform.Find("PlayerAudioManager").gameObject.GetComponent<PlayerAudioManager> ().PlayFirewallPlacedSound ();
