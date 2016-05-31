@@ -7,8 +7,18 @@ public class Projectile : MonoBehaviour
 	private float speed;
     private int currentLane;
     
+    private PauseManager pauseManager;
+    
+    void Start()
+    {
+		pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
+    }
+    
 	void Update()
 	{
+		if (pauseManager.paused)
+			return;
+			
 		gameObject.transform.position = new Vector2(gameObject.transform.position.x + speed, gameObject.transform.position.y);
 	}
 

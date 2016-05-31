@@ -25,8 +25,8 @@ public class PlayerControl : MonoBehaviour
 	public List<GameObject> playerComputers;
 	private bool stopDeterminingFill = false;
 
-
 	private NPCControl npcRef;
+	private PauseManager pauseManager;
     
     void Start() 
     {
@@ -36,6 +36,7 @@ public class PlayerControl : MonoBehaviour
         playerShooting = GetComponent<PlayerShooting>();
         playerBuilding = GetComponent<PlayerBuilding>();
         runtimeVariables = RuntimeVariables.GetInstance();
+        pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
                     
         SetupControls();
 		SetupComputers ();
@@ -43,7 +44,7 @@ public class PlayerControl : MonoBehaviour
 	
 	void Update() 
     {
-        if (!isControllable)
+        if (!isControllable || pauseManager.paused)
             return;
             
         ProcessActions();
