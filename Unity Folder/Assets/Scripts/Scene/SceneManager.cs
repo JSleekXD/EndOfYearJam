@@ -263,14 +263,20 @@ public class SceneManager : MonoBehaviour
 			return;
 		}
 		
-		GameObject.Find("Player" + tempWinnerID + "WinCounter").GetComponent<Image>().enabled = true;	
+		EnableScore (tempWinnerID);
+	}
+	
+	void EnableScore(int tempWinnerID)
+	{
+		GameObject.Find("Player" + tempWinnerID + "WinCounter0").GetComponent<Image>().enabled = true;	
+		GameObject.Find("Player" + tempWinnerID + "WinCounter1").GetComponent<Image>().enabled = true;	
 		
 		if (tempWinnerID == 0)
 			++runtimeVariables.player0RoundsWon;
 		
 		if (tempWinnerID == 1)
 			++runtimeVariables.player1RoundsWon;
-    }
+	}
     
     void DetermineGameOver()
     {
