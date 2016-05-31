@@ -10,7 +10,7 @@ public class PlayerBuilding : MonoBehaviour
     public int currentFirewalls = 0;
     
     public  int MAX_FIREWALLS_PER_LANE = 3;
-    private const int BASE_OFFSET_X = 2;
+    private float BASE_OFFSET_X = 3.5f;
     
 	void Start() 
 	{

@@ -41,7 +41,6 @@ public class CountdownManager : MonoBehaviour
 		if (timer > 0)
 		{
 			timer -= Time.deltaTime;
-			Debug.Log(timer);
 		} else {
 			isRoundFinished = true;
 			sceneManager.EndOfRound();

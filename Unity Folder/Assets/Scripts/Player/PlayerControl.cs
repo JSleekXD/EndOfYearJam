@@ -176,7 +176,7 @@ public class PlayerControl : MonoBehaviour
 		}
 	}
     
-    void ResetBuildTimer()
+    public void ResetBuildTimer()
     {
 		isPlayerBuildingFirewall = false;
 		firewallTimer = 0f;
