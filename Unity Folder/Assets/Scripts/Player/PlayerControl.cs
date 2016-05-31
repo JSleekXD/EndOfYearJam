@@ -26,9 +26,8 @@ public class PlayerControl : MonoBehaviour
 	private bool stopDeterminingFill = false;
 
 	public PlayerAudioManager audioManager;
-
-
 	private NPCControl npcRef;
+	private PauseManager pauseManager;
     
     void Start() 
     {
@@ -38,6 +37,8 @@ public class PlayerControl : MonoBehaviour
         playerShooting = GetComponent<PlayerShooting>();
         playerBuilding = GetComponent<PlayerBuilding>();
         runtimeVariables = RuntimeVariables.GetInstance();
+        pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
+
 		//audioManager = transform.Find("PlayerAudioManager").transform.GetComponent<PlayerAudioManager> ();
 		audioManager.StopFirewallBuildingSound ();
         SetupControls();
@@ -46,7 +47,7 @@ public class PlayerControl : MonoBehaviour
 	
 	void Update() 
     {
-        if (!isControllable)
+        if (!isControllable || pauseManager.paused)
             return;
             
         ProcessActions();

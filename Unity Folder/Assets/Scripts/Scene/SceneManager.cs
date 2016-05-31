@@ -232,6 +232,8 @@ public class SceneManager : MonoBehaviour
 		//play the round end music
 		roundOverText.SetActive (true);
 		EnablePlayerControl (false);
+		GameObject.Find("CountdownManager").GetComponent<CountdownManager>().isRoundFinished = true;
+		
 		yield return new WaitForSeconds (time);
 		DetermineGameOver();
 		//disable round over text
@@ -325,7 +327,11 @@ public class SceneManager : MonoBehaviour
     {
     	foreach (GameObject player in players)
     	{
-    		player.GetComponent<PlayerControl>().ResetBuildTimer();
+    		if (player.gameObject.tag == "Player")
+    			player.GetComponent<PlayerControl>().ResetBuildTimer();
+    			
+			if (player.gameObject.tag == "NPC")
+				player.GetComponent<NPCControl>().actionList.Clear();
     	}
     }
     

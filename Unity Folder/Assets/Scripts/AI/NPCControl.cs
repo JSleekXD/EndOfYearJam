@@ -21,6 +21,8 @@ public class NPCControl : MonoBehaviour
 	public List<KeyCode> actionList;
 	public float mirrorDelay = 2f;
 	public float timer = 0f;
+	
+	private PauseManager pauseManager;
 
 	void Start() 
 	{
@@ -30,6 +32,7 @@ public class NPCControl : MonoBehaviour
 		playerShooting = GetComponent<PlayerShooting>();
 		playerBuilding = GetComponent<PlayerBuilding>();
 		runtimeVariables = RuntimeVariables.GetInstance();
+		pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
 
 		SetupControls();
 		GameObject.Find ("Player0").GetComponent<PlayerControl> ().SetNPCref (this);
@@ -53,7 +56,7 @@ public class NPCControl : MonoBehaviour
 	
 	void Update() 
 	{
-		if (!isControllable)
+		if (!isControllable || pauseManager.paused)
 			return;
 
 		if (actionList.Count > 0) 
