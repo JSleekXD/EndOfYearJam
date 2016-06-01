@@ -39,7 +39,6 @@ public class PlayerControl : MonoBehaviour
         runtimeVariables = RuntimeVariables.GetInstance();
         pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
 
-		//audioManager = transform.Find("PlayerAudioManager").transform.GetComponent<PlayerAudioManager> ();
 		audioManager.StopFirewallBuildingSound ();
         SetupControls();
 		SetupComputers ();
@@ -151,6 +150,7 @@ public class PlayerControl : MonoBehaviour
 
 			isPlayerBuildingFirewall = true;
 			firewallTimer += Time.deltaTime;
+			audioManager.PlayFirewallBuildingSound();
 			if (firewallTimer >= firewallTimerThreshold)
 			{
 				playerBuilding.HandleBuild(playerObj, playerID, playerMovement.CurrentLane);

@@ -11,10 +11,14 @@ public class PlayerAudioManager : MonoBehaviour {
 
 
 	public void PlayFirewallBuildingSound(){
-
+		if (!firewallBuildingSound.GetComponent<AudioSource>().isPlaying)
+			firewallBuildingSound.GetComponent<AudioSource>().Play();
+			
 		firewallBuildingSound.GetComponent<AudioSource> ().volume = 1;
 	}
-	public void StopFirewallBuildingSound(){
+	
+	public void StopFirewallBuildingSound()
+	{
 		firewallBuildingSound.GetComponent<AudioSource> ().volume = 0;
 	}
 
