@@ -74,6 +74,7 @@ public class CountdownManager : MonoBehaviour
 			source.PlayOneShot(beepEnd, 0.5f);
             countdownText.color = Color.white;
 			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayHackSound();
+			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayBackgroundMusic();
             GameObject.Find("SceneManager").GetComponent<SceneManager>().EnablePlayerControl(true);
             
             isCountdownFinished = true;

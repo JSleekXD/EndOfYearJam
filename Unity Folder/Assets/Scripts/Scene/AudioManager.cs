@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour {
 	public GameObject getReadySound;
 	public GameObject tieSound;
 	public GameObject hackSound;
+	public GameObject backgroundMusic;
 
 
 	public static AudioManager instance;
@@ -34,6 +35,13 @@ public class AudioManager : MonoBehaviour {
 	}
 	public void PlayHackSound(){
 		hackSound.GetComponent<AudioSource> ().Play ();
+	}
+
+	public void PlayBackgroundMusic(){
+		backgroundMusic.SetActive (true);
+	}
+	public void StopBackgroundMusic(){
+		backgroundMusic.GetComponent<AudioSource> ().Stop ();
 	}
 
 
