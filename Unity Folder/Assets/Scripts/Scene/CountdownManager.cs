@@ -93,6 +93,8 @@ public class CountdownManager : MonoBehaviour
     {
     	sceneManager.EnablePlayerControl(false);
 		sceneManager.ResetServers ();
+		sceneManager.ResetComputerFill (sceneManager.leftComputers);
+		sceneManager.ResetComputerFill (sceneManager.rightComputers);
     	isCountdownFinished = false;
     	isRoundFinished = false;
 		timer = roundTime;
