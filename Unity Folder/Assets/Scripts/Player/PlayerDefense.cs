@@ -28,8 +28,35 @@ public class PlayerDefense : MonoBehaviour
 
 		int projectileID = other.gameObject.GetComponent<Projectile>().PlayerID;
 		GameObject.Find("Player" + projectileID).GetComponent<PlayerShooting>().RemoveProjectile(other.gameObject);
-		GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
-
+		
+		if (gameObject.name == "Player1Defense")
+		{
+			if (RuntimeVariables.GetInstance().isSinglePlayerToggled)
+			{
+				Debug.Log("npc wall hit");
+				GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
+			}
+			else if (!RuntimeVariables.GetInstance().isSinglePlayerToggled)
+			{
+				Debug.Log("player wall hit");
+				GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
+			}
+			
+		}
+		else if (gameObject.name == "Player0Defense")
+		{
+			if (RuntimeVariables.GetInstance().isSinglePlayerToggled)
+			{
+				Debug.Log("npc wall hit");
+				GameObject.Find("Player" + projectileID).GetComponent<NPCControl>().audioManager.PlayVirusHitComputerSound();
+			}
+			else if (!RuntimeVariables.GetInstance().isSinglePlayerToggled)
+			{
+				Debug.Log("player wall hit");
+				GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
+			}
+		}
+		
 		defenseHealthCurrent -= projectileDamage;
 		if (defenseHealthCurrent <= 0)
 		{

@@ -31,10 +31,13 @@ public class Projectile : MonoBehaviour
 	{
         string otherTag = other.gameObject.tag;
         string otherName = other.gameObject.name;
+        Debug.Log(otherName);
         
 		if (otherTag == "Player")
 		{
             // Ignore collisions with the shooting player
+            Debug.Log ("bullets id: " + playerID);
+			Debug.Log("colliders id: " + other.gameObject.GetComponent<PlayerProperties>().playerID);
 			if (other.gameObject.GetComponent<PlayerProperties>().playerID == playerID)
 				return;
 		}
