@@ -55,6 +55,7 @@ public class Projectile : MonoBehaviour
             // Ignore collisions with firewalls created by the shooting player
             if (otherName == "Player" + playerID + "Firewall")
                 return;
+			audioManager.PlayVirusHitFirewallSound();
             
             // Determine which player owns the firewall and remove it from their list
             int targetID = playerID == 0 ? 1 : 0;

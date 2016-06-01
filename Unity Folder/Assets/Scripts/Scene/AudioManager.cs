@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour {
 
 	public GameObject roundOverSound;
 	public GameObject virusHitVirusSound;
+	public GameObject virusHitFirewallSound;
 
 
 	public static AudioManager instance;
@@ -17,6 +18,9 @@ public class AudioManager : MonoBehaviour {
 	}
 	public void PlayVirusHitVirusSound(){
 		virusHitVirusSound.GetComponent<AudioSource> ().Play ();
+	}
+	public void PlayVirusHitFirewallSound(){
+		virusHitFirewallSound.GetComponent<AudioSource> ().Play ();
 	}
 
 
