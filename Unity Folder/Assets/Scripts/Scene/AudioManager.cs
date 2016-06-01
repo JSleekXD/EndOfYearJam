@@ -6,12 +6,15 @@ public class AudioManager : MonoBehaviour {
 	public GameObject roundOverSound;
 	public GameObject virusHitVirusSound;
 	public GameObject virusHitFirewallSound;
+	public GameObject getReadySound;
+	public GameObject tieSound;
+	public GameObject hackSound;
 
 
 	public static AudioManager instance;
 
 	public void PlayRoundOverSound(){
-		roundOverSound.SetActive (true);
+		roundOverSound.GetComponent<AudioSource> ().Play ();
 	}
 	public void StopRoundOverSound(){
 		roundOverSound.SetActive (false);
@@ -21,6 +24,16 @@ public class AudioManager : MonoBehaviour {
 	}
 	public void PlayVirusHitFirewallSound(){
 		virusHitFirewallSound.GetComponent<AudioSource> ().Play ();
+	}
+
+	public void PlayGetReadySound(){
+		getReadySound.GetComponent<AudioSource> ().Play ();
+	}
+	public void PlayTieSound(){
+		tieSound.GetComponent<AudioSource> ().Play ();
+	}
+	public void PlayHackSound(){
+		hackSound.GetComponent<AudioSource> ().Play ();
 	}
 
 
