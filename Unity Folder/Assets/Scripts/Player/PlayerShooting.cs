@@ -46,6 +46,7 @@ public class PlayerShooting : MonoBehaviour
 
 	public void RemoveProjectile(GameObject projectile)
 	{
+		print ("RemoveProjectile called");
 		projectiles.Remove(projectile);
 		Destroy(projectile);
 	}
