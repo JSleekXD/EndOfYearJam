@@ -34,7 +34,6 @@ public class SceneManager : MonoBehaviour
 	public GameObject roundOverText;
 	public float BASE_DESK_OFFSET_Y = 1.5f;
 
-
 	public Sprite server;
 	public Sprite serverExploded;
 	public GameObject serverRef;
@@ -44,9 +43,11 @@ public class SceneManager : MonoBehaviour
 	private float serverOffsetX = 1.425f;
 	private float serverOffsetY = 0.75f;
 	private float distanceBetweenServers = 0.93f;
-
-
-
+	
+	public bool[] player0ThreatenedByProjectileInLane;
+	public bool[] player1ThreatenedByProjectileInLane;
+	public Sprite computerThreatenedSprite;
+	public Sprite computerIdleSprite;
 
 	void Awake()
     {
@@ -61,7 +62,10 @@ public class SceneManager : MonoBehaviour
 		} else {
 			numberOfPlayers = 2;
 		}
-
+		
+		player0ThreatenedByProjectileInLane = new bool[desiredDesks];
+		player1ThreatenedByProjectileInLane = new bool[desiredDesks];
+		
         SpawnDesks();
 		SpawnComputers();
 		SpawnServers ();
@@ -70,6 +74,23 @@ public class SceneManager : MonoBehaviour
         ZoomCamera();
         SpawnDefenseTriggers();
         SpawnPlayers();  
+    }
+    
+    void Update()
+    {
+		UpdateComputerSceens(player0ThreatenedByProjectileInLane, leftComputers);
+		UpdateComputerSceens(player1ThreatenedByProjectileInLane, rightComputers);
+    }
+    
+    void UpdateComputerSceens(bool[] playerThreatenedByProjectileInLane, List<GameObject> list)
+    {
+		for (int i = 0; i < list.Count; ++i)
+		{
+			if (playerThreatenedByProjectileInLane[i])
+				list[i].GetComponent<Image>().sprite = computerThreatenedSprite;
+			else
+				list[i].GetComponent<Image>().sprite = computerIdleSprite;
+		}
     }
     
 	void SpawnDesks()
@@ -87,47 +108,55 @@ public class SceneManager : MonoBehaviour
 		
 		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1.5f));
 	}
-	void SpawnServers(){
+	
+	void SpawnServers()
+	{
 		GameObject serverParent = GameObject.Find ("Servers");
 
-		for (int i = 0; i < desiredDesks * 2; i++) {
+		for (int i = 0; i < desiredDesks * 2; i++) 
+		{
 			SpawnServer(serverParent, i, leftServers);
 		}
 
-		for (int i = 0; i < desiredDesks * 2; i++){
+		for (int i = 0; i < desiredDesks * 2; i++)
+		{
 			SpawnServer(serverParent, i, rightServers);
-
 		}
-
-
 	}
-	public void ResetServers(){
-	// hitsTaken = 0;
+	
+	public void ResetServers()
+	{
 		GameObject.Find ("Player0Defense").GetComponent<PlayerDefense> ().hitsTaken = 0;
 		GameObject.Find ("Player1Defense").GetComponent<PlayerDefense> ().hitsTaken = 0;
 		for (int i = 0; i < leftServers.Count; i++) {
 			leftServers[i].gameObject.GetComponent<Image> ().sprite = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().server;
 			rightServers[i].gameObject.GetComponent<Image> ().sprite = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().server;
 		}
-	
 	}
-	void SpawnServer(GameObject serverParent, int i, List<GameObject> list){
+	
+	void SpawnServer(GameObject serverParent, int i, List<GameObject> list)
+	{
 
 		GameObject newServer = Instantiate (serverRef);
 		newServer.name = "Server" + i;
 		newServer.transform.SetParent (serverParent.transform);
 		list.Add (newServer);
 	}
-	void SetServerPositions(List<GameObject> serverList){
+	
+	void SetServerPositions(List<GameObject> serverList)
+	{
 		float tempOffsetX = -(desks[0].transform.localScale.x / serverOffsetX);
-		if (serverList == leftServers) {
+		if (serverList == leftServers) 
+		{
 		
-		} else if (serverList == rightServers) {
+		} else if (serverList == rightServers) 
+		{
 			tempOffsetX = -tempOffsetX;
 		}
 
 		serverList [0].transform.position = new Vector2 (tempOffsetX, desks [0].transform.position.y - serverOffsetY);
-		for (int i = 1; i < serverList.Count; i++) {
+		for (int i = 1; i < serverList.Count; i++) 
+		{
 			serverList[i].transform.position = new Vector2(serverList[i-1].transform.position.x, serverList[i-1].transform.position.y +distanceBetweenServers );
 		}
 	}
@@ -163,7 +192,7 @@ public class SceneManager : MonoBehaviour
 		{
 			tempSide = 0;
 		}
-		else
+		else if (list == rightComputers)
 		{
 			tempSide = 1;
 			tempOffsetX = -tempOffsetX;
@@ -283,6 +312,7 @@ public class SceneManager : MonoBehaviour
     	RemoveAllProjectiles();
     	ResetDefense();
     	ResetBuildTimers();
+    	ResetThreatenLists();
     	
 		//wait for 2 seconds
 		StartCoroutine(WaitAfterRoundFinished(2.0f));
@@ -414,6 +444,15 @@ public class SceneManager : MonoBehaviour
     void ResetCountdown()
     {
     	GameObject.Find("CountdownManager").GetComponent<CountdownManager>().Reset();
+    }
+    
+    void ResetThreatenLists()
+    {
+    	for (int i = 0; i < desiredDesks; ++i)
+    	{
+    		player0ThreatenedByProjectileInLane[i] = false;
+    		player1ThreatenedByProjectileInLane[i] = false;
+    	}
     }
 }
 

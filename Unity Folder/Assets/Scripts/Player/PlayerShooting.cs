@@ -11,14 +11,33 @@ public class PlayerShooting : MonoBehaviour
 
 	private Quaternion playerOneSpawnRot = new Quaternion(180.0f, 180.0f, 0.0f, 0.0f);
 	private Quaternion playerTwoSpawnRot = new Quaternion(217.0f, -217.0f, 0.0f, 0.0f);
+	
+	private SceneManager sceneManager;
+	private PlayerProperties playerProperties;
     
     void Start()
     {
-        if (GetComponent<PlayerProperties>().playerID == 1) 
+    	sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+		playerProperties = GetComponent<PlayerProperties>();
+		
+        if (playerProperties.playerID == 1) 
         {
             projectileSpeed = -projectileSpeed;
             offsetFromPlayer = -offsetFromPlayer;
         }
+    }
+    
+    void Update()
+    {
+    	for (int i = 0; i < projectiles.Count; ++i)
+    	{
+    		if (playerProperties.playerID == 0)
+    		{
+    			sceneManager.player1ThreatenedByProjectileInLane[projectiles[i].GetComponent<Projectile>().currentLane] = true;
+    		} else {
+				sceneManager.player0ThreatenedByProjectileInLane[projectiles[i].GetComponent<Projectile>().currentLane] = true;
+    		}
+    	}
     }
 	
 	public void ShootProjectile(GameObject player, int playerID)
@@ -46,7 +65,13 @@ public class PlayerShooting : MonoBehaviour
 
 	public void RemoveProjectile(GameObject projectile)
 	{
-		print ("RemoveProjectile called");
+		if (playerProperties.playerID == 0)
+		{
+			sceneManager.player1ThreatenedByProjectileInLane[projectile.GetComponent<Projectile>().currentLane] = false;
+		} else {
+			sceneManager.player0ThreatenedByProjectileInLane[projectile.GetComponent<Projectile>().currentLane] = false;
+		}
+		
 		projectiles.Remove(projectile);
 		Destroy(projectile);
 	}

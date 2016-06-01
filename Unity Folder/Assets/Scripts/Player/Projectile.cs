@@ -5,7 +5,7 @@ public class Projectile : MonoBehaviour
 {
 	private int playerID;
 	private float speed;
-    private int currentLane;
+    public int currentLane;
 	public AudioManager audioManager;
 	private PauseManager pauseManager;
 	public Sprite player1Sprite;
