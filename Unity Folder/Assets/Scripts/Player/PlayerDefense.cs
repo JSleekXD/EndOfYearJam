@@ -28,7 +28,8 @@ public class PlayerDefense : MonoBehaviour
 
 		int projectileID = other.gameObject.GetComponent<Projectile>().PlayerID;
 		GameObject.Find("Player" + projectileID).GetComponent<PlayerShooting>().RemoveProjectile(other.gameObject);
-		
+		GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
+
 		defenseHealthCurrent -= projectileDamage;
 		if (defenseHealthCurrent <= 0)
 		{
