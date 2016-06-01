@@ -310,7 +310,7 @@ public class SceneManager : MonoBehaviour
     public void EndOfRound()
     {
 		roundOverText.GetComponent<Text> ().text = "ROUND OVER";
-		GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayRoundOverSound ();
+		//GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayRoundOverSound ();
 		DetermineRoundWinner();
 
 		ResetComputerScreens ();
@@ -336,7 +336,7 @@ public class SceneManager : MonoBehaviour
 		DetermineGameOver();
 		//disable round over text
 		roundOverText.SetActive (false);
-		GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager>().StopRoundOverSound ();
+		//GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager>().StopRoundOverSound ();
 		ResetCountdown();
 	}
     
@@ -357,8 +357,11 @@ public class SceneManager : MonoBehaviour
 		PlayerDefense player1DefenseRef = defenseTriggers [1].GetComponent<PlayerDefense> ();
 
 		if (player0DefenseRef.defenseHealthCurrent == player1DefenseRef.defenseHealthCurrent) {
-			roundOverText.GetComponent<Text>().text = "TIE!";
+			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayTieSound ();
+			roundOverText.GetComponent<Text> ().text = "TIE!";
 			return;
+		} else {
+			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayRoundOverSound ();
 		}
 		
 		EnableScore (tempWinnerID);

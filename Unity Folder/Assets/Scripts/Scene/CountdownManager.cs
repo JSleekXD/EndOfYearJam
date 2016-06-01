@@ -17,6 +17,8 @@ public class CountdownManager : MonoBehaviour
     
     public float roundTime = 60f;
     private float timer;
+
+
         
 	void Start() 
     {
@@ -64,13 +66,14 @@ public class CountdownManager : MonoBehaviour
     
     private IEnumerator Countdown(float _time)
     {
+
         yield return new WaitForSeconds(1.0f);
         
         if (_time <= 0)
         {
 			source.PlayOneShot(beepEnd, 0.5f);
             countdownText.color = Color.white;
-            
+			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayHackSound();
             GameObject.Find("SceneManager").GetComponent<SceneManager>().EnablePlayerControl(true);
             
             isCountdownFinished = true;
@@ -91,6 +94,7 @@ public class CountdownManager : MonoBehaviour
     
     public void Reset()
     {
+		GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayGetReadySound ();
     	sceneManager.EnablePlayerControl(false);
 		sceneManager.ResetServers ();
 		sceneManager.ResetComputerFill (sceneManager.leftComputers);
