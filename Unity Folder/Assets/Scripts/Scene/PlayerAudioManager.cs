@@ -6,6 +6,7 @@ public class PlayerAudioManager : MonoBehaviour {
 	public GameObject firewallBuildingSound;
 	public GameObject firewallPlacedSound;
 	public GameObject shootVirusSound;
+	public GameObject cannotPlaceFirewallSound;
 
 	public void PlayFirewallBuildingSound(){
 
@@ -22,5 +23,9 @@ public class PlayerAudioManager : MonoBehaviour {
 
 	public void PlayShootVirusSound(){
 		shootVirusSound.GetComponent<AudioSource> ().Play ();
+	}
+
+	public void PlayCannotPlaceFirewallSound(){
+		cannotPlaceFirewallSound.GetComponent<AudioSource> ().Play ();
 	}
 }
