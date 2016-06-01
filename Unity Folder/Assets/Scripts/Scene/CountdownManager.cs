@@ -71,7 +71,7 @@ public class CountdownManager : MonoBehaviour
         
         if (_time <= 0)
         {
-			source.PlayOneShot(beepEnd, 0.5f);
+			source.PlayOneShot(beepEnd, 0.1f);
             countdownText.color = Color.white;
 			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayHackSound();
 			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayBackgroundMusic();
