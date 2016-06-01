@@ -121,7 +121,7 @@ public class PlayerControl : MonoBehaviour
 		if (Input.GetKeyDown(ActionMoveUp))
         {
 			PassActionToNPC(ActionMoveUp);
-
+			
 			ResetBuildTimer();
             playerMovement.MovePlayerUp(playerObj);
         }
@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour
 		if (Input.GetKeyDown(ActionMoveDown))
         {
 			PassActionToNPC(ActionMoveDown);
-
+			
 			ResetBuildTimer();
             playerMovement.MovePlayerDown(playerObj);
         }
@@ -160,35 +160,32 @@ public class PlayerControl : MonoBehaviour
 		else
 		{
 			audioManager.StopFirewallBuildingSound ();
-		//	playerComputers [GetComponent<PlayerMovement>().CurrentLane].GetComponentInChildren<Image> ().fillAmount = 0;
-
-				ResetBuildTimer();
+			ResetBuildTimer();
 		}
-		if (Input.GetKeyUp (ActionBuildFirewall)) {
+		
+		if (Input.GetKeyUp (ActionBuildFirewall)) 
+		{
 			playerComputers [playerMovement.CurrentLane].transform.Find ("Arrow").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
 		}
     }
 
-	void ChangeComputerFirewallFill(int currentLane){
+	void ChangeComputerFirewallFill(int currentLane)
+	{
 		CheckFirewallsInLane ();
-		if (stopDeterminingFill == false) {
-			//Debug.Log ("CALLED");
+		if (stopDeterminingFill == false) 
+		{
 			playerComputers [currentLane].transform.Find ("Arrow").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
-//			if(gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound1 == true || gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound2 == true){
-//				audioManager.StopFirewallBuildingSound();
-//			}else{
-//				audioManager.PlayFirewallBuildingSound ();
-//			}
 		} else {
 			audioManager.StopFirewallBuildingSound ();
 		}
 	}
 
-	void CheckFirewallsInLane(){
+	void CheckFirewallsInLane()
+	{
 		if (GetComponent<PlayerBuilding> ().FirewallsInLane (GetComponent<PlayerMovement> ().CurrentLane) == GetComponent<PlayerBuilding> ().MAX_FIREWALLS_PER_LANE || GetComponent<PlayerBuilding>().currentFirewalls == GetComponent<PlayerBuilding>().maxFirewalls  ) {
 			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 1;
 			stopDeterminingFill = true;
-			audioManager.StopFirewallBuildingSound ();
+			audioManager.StopFirewallBuildingSound();
 		} else {
 			stopDeterminingFill = false;
 		}
@@ -196,13 +193,12 @@ public class PlayerControl : MonoBehaviour
     
     public void ResetBuildTimer()
     {
-
-
 		isPlayerBuildingFirewall = false;
 		firewallTimer = 0f;
 		CheckFirewallsInLane ();
 		if (stopDeterminingFill == false) {
 			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 0;
+			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("Arrow").GetComponent<Image> ().fillAmount = 0;
 		}
     }
 
