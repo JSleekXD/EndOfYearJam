@@ -176,6 +176,7 @@ public class SceneManager : MonoBehaviour
 			SpawnComputer(computerParent, stationParent, i, rightComputers, 90);
 		}
 	}
+
 	
 	void SpawnComputer(GameObject computerParent, GameObject stationParent, int i, List<GameObject> list, float rotationZ)
 	{
@@ -200,6 +201,12 @@ public class SceneManager : MonoBehaviour
 		
 		newComputer.transform.position = new Vector2(tempOffsetX, desks[i].transform.position.y);
 		SpawnStation(stationParent, newComputer.transform, tempSide, rotationZ);
+	}
+
+	public void ResetComputerFill(List<GameObject> list){
+		for (int i = 0; i < list.Count; i++) {
+			list[i].transform.Find("Arrow").GetComponent<Image> ().fillAmount = 0;
+		}
 	}
 	
 	void SpawnStation(GameObject stationParent, Transform newComputer, int side, float rotationZ)
