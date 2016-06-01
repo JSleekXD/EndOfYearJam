@@ -22,18 +22,20 @@ public class NPCControl : MonoBehaviour
 	public float mirrorDelay = 2f;
 	public float timer = 0f;
 	
+	public PlayerAudioManager audioManager;
 	private PauseManager pauseManager;
 
 	void Start() 
 	{
-		playerID = GetComponent<PlayerProperties>().playerID;            
+		playerID = 1;          
 		playerObj = gameObject;
 		playerMovement = GetComponent<PlayerMovement>();
 		playerShooting = GetComponent<PlayerShooting>();
 		playerBuilding = GetComponent<PlayerBuilding>();
 		runtimeVariables = RuntimeVariables.GetInstance();
 		pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
-
+		//audioManager = GetComponentInChildren<PlayerAudioManager>();
+		
 		SetupControls();
 		GameObject.Find ("Player0").GetComponent<PlayerControl> ().SetNPCref (this);
 		timer = mirrorDelay;

@@ -3,10 +3,21 @@ using System.Collections;
 
 public class StartSceneActions : MonoBehaviour 
 {
-    public void PlayButton()
-    {
-        Application.LoadLevel("GameScene");
-    }
+	void Start()
+	{
+		RuntimeVariables.GetInstance().isSinglePlayerToggled = false;
+	}
+
+	public void PlayVersusButton()
+	{
+		Application.LoadLevel("GameScene");
+	}
+	
+	public void PlaySinglePlayerButton()
+	{
+		RuntimeVariables.GetInstance().isSinglePlayerToggled = true;
+		Application.LoadLevel("GameScene");
+	}
     
     public void QuitButton()
     {
@@ -16,6 +27,6 @@ public class StartSceneActions : MonoBehaviour
     public void Update()
     {
     	if (Input.GetKeyDown(KeyCode.Space))
-    		PlayButton();
+    		PlayVersusButton();
     }
 }
