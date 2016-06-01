@@ -12,6 +12,9 @@ public class PlayerBuilding : MonoBehaviour
     public  int MAX_FIREWALLS_PER_LANE = 3;
     private float BASE_OFFSET_X = 2.5f;
     private float FIREWALL_SPACING = 0.5f;
+
+	public bool stopPlayingBuildingSound1 = false;
+	public bool stopPlayingBuildingSound2 = false;
     
 	void Start() 
 	{
@@ -47,12 +50,23 @@ public class PlayerBuilding : MonoBehaviour
 
     void PlaceFirewall(GameObject player, int playerID, int currentLane)
 	{
-        if (currentFirewalls == maxFirewalls)
-            return;
+        if (currentFirewalls == maxFirewalls) {
+			gameObject.GetComponent<PlayerControl> ().audioManager.PlayCannotPlaceFirewallSound ();
+			stopPlayingBuildingSound2 = true;
+			return;
+		}
+		else{
+			stopPlayingBuildingSound2 = false;
+		}
             
         int numFirewalls = firewalls[currentLane].Count;
-        if (numFirewalls == MAX_FIREWALLS_PER_LANE)
-            return;
+        if (numFirewalls == MAX_FIREWALLS_PER_LANE) {
+			stopPlayingBuildingSound1 = true;
+			gameObject.GetComponent<PlayerControl> ().audioManager.PlayCannotPlaceFirewallSound ();
+			return;
+		} else {
+			stopPlayingBuildingSound1 = false;
+		}
         
         float offsetX = BASE_OFFSET_X + (numFirewalls * FIREWALL_SPACING);
         if (playerID == 1)
