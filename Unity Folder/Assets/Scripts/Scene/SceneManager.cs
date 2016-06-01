@@ -34,6 +34,17 @@ public class SceneManager : MonoBehaviour
 	public GameObject roundOverText;
 	public float BASE_DESK_OFFSET_Y = 1.5f;
 
+	public Sprite server;
+	public Sprite serverExploded;
+	public GameObject serverRef;
+	public List<GameObject> leftServers;
+	public List<GameObject> rightServers;
+
+	private float serverOffsetX = 1.425f;
+	private float serverOffsetY = 0.75f;
+
+
+
     void Start()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
@@ -50,6 +61,8 @@ public class SceneManager : MonoBehaviour
 
         SpawnDesks();
 		SpawnComputers();
+		SpawnServers ();
+		SetServerPositions (leftServers, rightServers);
         ZoomCamera();
         SpawnDefenseTriggers();
         SpawnPlayers();  
@@ -69,6 +82,46 @@ public class SceneManager : MonoBehaviour
 		}
 		
 		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1.5f));
+	}
+	void SpawnServers(){
+		GameObject serverParent = GameObject.Find ("Servers");
+
+		for (int i = 0; i < desiredDesks * 2; i++) {
+			SpawnServer(serverParent, i, leftServers);
+		}
+
+		for (int i = 0; i < desiredDesks * 2; i++){
+			SpawnServer(serverParent, i, rightServers);
+
+		}
+
+
+	}
+	void SpawnServer(GameObject serverParent, int i, List<GameObject> list){
+
+		GameObject newServer = Instantiate (serverRef);
+		newServer.name = "Server" + i;
+		newServer.transform.SetParent (serverParent.transform);
+		list.Add (newServer);
+
+//		int tempSide = 0;
+//		float tempOffsetX = -(desks[0].transform.localScale.x / 2);
+//		if (list == leftServers)
+//		{
+//			tempSide = 0;
+//		}
+//		else
+//		{
+//			tempSide = 1;
+//			tempOffsetX = -tempOffsetX;
+//		}
+//		
+//		newServer.transform.position = new Vector2(tempOffsetX, desks[i].transform.position.y);
+	
+	}
+	void SetServerPositions(List<GameObject> leftList, List<GameObject> rightList){
+		float tempOffsetX = -(desks[0].transform.localScale.x / serverOffsetX);
+		leftList [0].transform.position = new Vector2 (tempOffsetX, desks [0].transform.position.y - serverOffsetY);
 	}
 
 	void SpawnComputers()
