@@ -43,6 +43,7 @@ public class SceneManager : MonoBehaviour
 
 	private float serverOffsetX = 1.425f;
 	private float serverOffsetY = 0.75f;
+	private float distanceBetweenServers = 0.93f;
 
 
 
@@ -64,7 +65,8 @@ public class SceneManager : MonoBehaviour
         SpawnDesks();
 		SpawnComputers();
 		SpawnServers ();
-		SetServerPositions (leftServers, rightServers);
+		SetServerPositions (leftServers);
+		SetServerPositions (rightServers);
         ZoomCamera();
         SpawnDefenseTriggers();
         SpawnPlayers();  
@@ -121,9 +123,18 @@ public class SceneManager : MonoBehaviour
 //		newServer.transform.position = new Vector2(tempOffsetX, desks[i].transform.position.y);
 	
 	}
-	void SetServerPositions(List<GameObject> leftList, List<GameObject> rightList){
+	void SetServerPositions(List<GameObject> serverList){
 		float tempOffsetX = -(desks[0].transform.localScale.x / serverOffsetX);
-		leftList [0].transform.position = new Vector2 (tempOffsetX, desks [0].transform.position.y - serverOffsetY);
+		if (serverList == leftServers) {
+		
+		} else if (serverList == rightServers) {
+			tempOffsetX = -tempOffsetX;
+		}
+
+		serverList [0].transform.position = new Vector2 (tempOffsetX, desks [0].transform.position.y - serverOffsetY);
+		for (int i = 1; i < serverList.Count; i++) {
+			serverList[i].transform.position = new Vector2(serverList[i-1].transform.position.x, serverList[i-1].transform.position.y +distanceBetweenServers );
+		}
 	}
 
 	void SpawnComputers()
