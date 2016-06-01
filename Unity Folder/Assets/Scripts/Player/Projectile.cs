@@ -6,14 +6,19 @@ public class Projectile : MonoBehaviour
 	private int playerID;
 	private float speed;
     private int currentLane;
-    
-    private PauseManager pauseManager;
-    
-    void Start()
-    {
+	public AudioManager audioManager;
+	private PauseManager pauseManager;
+	public Sprite player1Sprite;
+
+	void Start()
+	{
+		if (playerID == 1)
+			GetComponent<SpriteRenderer>().sprite = player1Sprite;
+			
+		audioManager = GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ();
 		pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
-    }
-    
+	}
+	
 	void Update()
 	{
 		if (pauseManager.paused)
@@ -36,9 +41,13 @@ public class Projectile : MonoBehaviour
         
 		if (otherTag == "Projectile")
 		{
+
 			if(other.gameObject.GetComponent<Projectile>().playerID == playerID)
 				return;
+			audioManager.PlayVirusHitVirusSound();
+
 		}
+
          
         if (otherTag == "Firewall")
         {

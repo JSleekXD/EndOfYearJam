@@ -23,7 +23,7 @@ public class SceneManager : MonoBehaviour
 	public GameObject deskRef;
 
     private bool controlEnabled;
-    private float BASE_DEFENSE_TRIGGER_OFFSET_X = 3f;
+    private float BASE_DEFENSE_TRIGGER_OFFSET_X = 4f;
 	private RuntimeVariables runtimeVariables;
 
 	public GameObject computerRef;
@@ -31,8 +31,8 @@ public class SceneManager : MonoBehaviour
 	public List<GameObject> rightComputers;
 	
 	public GameObject stationRef;
-
 	public GameObject roundOverText;
+	public float BASE_DESK_OFFSET_Y = 1.5f;
 
     void Start()
     {
@@ -64,11 +64,11 @@ public class SceneManager : MonoBehaviour
 			newDesk.name = "Desk" + i;
 			
 			newDesk.transform.SetParent(deskParent.transform);
-			newDesk.transform.position = new Vector2(0, deskParent.transform.position.y + (i * 2));
+			newDesk.transform.position = new Vector2(0, deskParent.transform.position.y + (i * BASE_DESK_OFFSET_Y));
 			desks.Add(newDesk);
 		}
 		
-		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1));
+		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1.5f));
 	}
 
 	void SpawnComputers()
@@ -97,7 +97,7 @@ public class SceneManager : MonoBehaviour
 		list.Add(newComputer);
 		
 		int tempSide = 0;
-		float tempOffsetX = -((desks[0].transform.localScale.x / 2) - 1.9f);
+		float tempOffsetX = -(desks[0].transform.localScale.x / 2);
 		if (list == leftComputers)
 		{
 			tempSide = 0;
@@ -119,7 +119,7 @@ public class SceneManager : MonoBehaviour
 		newStation.transform.SetParent(stationParent.transform);
 		newStation.transform.localEulerAngles = new Vector3(0, 0, rotationZ);
 		
-		float tempOffsetX = 1.9f;
+		float tempOffsetX = 1.2f;
 		if (side == 1)
 			tempOffsetX = -tempOffsetX;
 			
@@ -154,7 +154,7 @@ public class SceneManager : MonoBehaviour
 
 	void SpawnPlayers()
 	{
-		float offsetX = -(desks[0].transform.localScale.x / 2);
+		float offsetX = -((desks[0].transform.localScale.x / 2) + 1.2f);
 		
 		for (int i = 0; i < numberOfPlayers; ++i)
 		{
@@ -263,14 +263,29 @@ public class SceneManager : MonoBehaviour
 			return;
 		}
 		
-		GameObject.Find("Player" + tempWinnerID + "WinCounter").GetComponent<Image>().enabled = true;	
-		
+		EnableScore (tempWinnerID);
+	}
+	
+	void EnableScore(int tempWinnerID)
+	{
+		// ADD ON SCORE
 		if (tempWinnerID == 0)
 			++runtimeVariables.player0RoundsWon;
 		
 		if (tempWinnerID == 1)
 			++runtimeVariables.player1RoundsWon;
-    }
+
+		// DISPLAY SCORE
+		if (runtimeVariables.player0RoundsWon == 2 
+		    || runtimeVariables.player1RoundsWon == 2) 
+		{
+			GameObject.Find ("Player" + tempWinnerID + "WinCounter1").GetComponent<Image> ().enabled = true;	
+		}
+		else
+		{
+			GameObject.Find ("Player" + tempWinnerID + "WinCounter0").GetComponent<Image> ().enabled = true;	
+		}
+	}
     
     void DetermineGameOver()
     {

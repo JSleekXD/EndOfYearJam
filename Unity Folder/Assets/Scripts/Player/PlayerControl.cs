@@ -139,6 +139,7 @@ public class PlayerControl : MonoBehaviour
 			PassActionToNPC(ActionShoot);
 
             playerShooting.ShootProjectile(playerObj, playerID);
+		
         }
         
         if (Input.GetKey(ActionBuildFirewall))
@@ -169,8 +170,12 @@ public class PlayerControl : MonoBehaviour
 		CheckFirewallsInLane ();
 		if (stopDeterminingFill == false) {
 			//Debug.Log ("CALLED");
-			audioManager.PlayFirewallBuildingSound ();
 			playerComputers [currentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
+			if(gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound1 == true || gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound2 == true){
+				audioManager.StopFirewallBuildingSound();
+			}else{
+				audioManager.PlayFirewallBuildingSound ();
+			}
 		} else {
 			audioManager.StopFirewallBuildingSound ();
 		}
