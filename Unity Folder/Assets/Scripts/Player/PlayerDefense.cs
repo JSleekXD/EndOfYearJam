@@ -36,12 +36,10 @@ public class PlayerDefense : MonoBehaviour
 		{
 			if (RuntimeVariables.GetInstance().isSinglePlayerToggled)
 			{
-				Debug.Log("npc wall hit");
 				GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
 			}
 			else if (!RuntimeVariables.GetInstance().isSinglePlayerToggled)
 			{
-				Debug.Log("player wall hit");
 				GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
 			}
 			
@@ -50,12 +48,10 @@ public class PlayerDefense : MonoBehaviour
 		{
 			if (RuntimeVariables.GetInstance().isSinglePlayerToggled)
 			{
-				Debug.Log("npc wall hit");
 				GameObject.Find("Player" + projectileID).GetComponent<NPCControl>().audioManager.PlayVirusHitComputerSound();
 			}
 			else if (!RuntimeVariables.GetInstance().isSinglePlayerToggled)
 			{
-				Debug.Log("player wall hit");
 				GameObject.Find("Player" + projectileID).GetComponent<PlayerControl>().audioManager.PlayVirusHitComputerSound();
 			}
 		}

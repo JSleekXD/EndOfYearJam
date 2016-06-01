@@ -36,10 +36,7 @@ public class Projectile : MonoBehaviour
 		{
             // Ignore collisions with the shooting player
 			if (other.gameObject.GetComponent<PlayerProperties>().playerID == playerID)
-			{
-				print("Player" + other.gameObject.GetComponent<PlayerProperties>().playerID + "'s bullet collided with Player" + playerID);
 				return;
-			}
 		}
         
 		if (otherTag == "Projectile")
