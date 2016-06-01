@@ -68,7 +68,7 @@ public class SceneManager : MonoBehaviour
 			desks.Add(newDesk);
 		}
 		
-		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1));
+		deskParent.transform.position = new Vector2(0, 0 - (desiredDesks - 1.5f));
 	}
 
 	void SpawnComputers()

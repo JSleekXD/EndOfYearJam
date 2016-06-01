@@ -8,8 +8,13 @@ public class Projectile : MonoBehaviour
     private int currentLane;
 	public AudioManager audioManager;
 	private PauseManager pauseManager;
+	public Sprite player1Sprite;
 
-	void Start(){
+	void Start()
+	{
+		if (playerID == 1)
+			GetComponent<SpriteRenderer>().sprite = player1Sprite;
+			
 		audioManager = GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ();
 		pauseManager = GameObject.Find("SceneManager").GetComponent<PauseManager>();
 	}
