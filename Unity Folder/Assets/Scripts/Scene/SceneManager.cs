@@ -34,7 +34,7 @@ public class SceneManager : MonoBehaviour
 	public GameObject roundOverText;
 	public float BASE_DESK_OFFSET_Y = 1.5f;
 
-    void Start()
+    void Awake()
     {
 		runtimeVariables = RuntimeVariables.GetInstance ();
 		runtimeVariables.player0RoundsWon = 0;
