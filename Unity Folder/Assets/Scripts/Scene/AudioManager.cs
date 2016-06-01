@@ -10,6 +10,7 @@ public class AudioManager : MonoBehaviour {
 	public GameObject tieSound;
 	public GameObject hackSound;
 	public GameObject backgroundMusic;
+	public GameObject virusHitPlayer;
 
 
 	public static AudioManager instance;
@@ -42,6 +43,10 @@ public class AudioManager : MonoBehaviour {
 	}
 	public void StopBackgroundMusic(){
 		backgroundMusic.GetComponent<AudioSource> ().Stop ();
+	}
+
+	public void PlayVirusHitPlayer(){
+		virusHitPlayer.GetComponent<AudioSource> ().Play ();
 	}
 
 

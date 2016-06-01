@@ -34,9 +34,13 @@ public class Projectile : MonoBehaviour
         
 		if (otherTag == "Player" || otherTag == "NPC")
 		{
+
             // Ignore collisions with the shooting player
-			if (other.gameObject.GetComponent<PlayerProperties>().playerID == playerID)
+			if (other.gameObject.GetComponent<PlayerProperties>().playerID == playerID){
+
 				return;
+			}
+			audioManager.PlayVirusHitPlayer();
 		}
         
 		if (otherTag == "Projectile")
