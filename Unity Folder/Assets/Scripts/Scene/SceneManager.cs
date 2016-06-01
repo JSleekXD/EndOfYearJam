@@ -23,7 +23,7 @@ public class SceneManager : MonoBehaviour
 	public GameObject deskRef;
 
     private bool controlEnabled;
-    private float BASE_DEFENSE_TRIGGER_OFFSET_X = 4f;
+    private float BASE_DEFENSE_TRIGGER_OFFSET_X = 2.5f;
 	private RuntimeVariables runtimeVariables;
 
 	public GameObject computerRef;
