@@ -101,27 +101,22 @@ public class SceneManager : MonoBehaviour
 
 
 	}
+	public void ResetServers(){
+	// hitsTaken = 0;
+		GameObject.Find ("Player0Defense").GetComponent<PlayerDefense> ().hitsTaken = 0;
+		GameObject.Find ("Player1Defense").GetComponent<PlayerDefense> ().hitsTaken = 0;
+		for (int i = 0; i < leftServers.Count; i++) {
+			leftServers[i].gameObject.GetComponent<Image> ().sprite = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().server;
+			rightServers[i].gameObject.GetComponent<Image> ().sprite = GameObject.Find ("SceneManager").GetComponent<SceneManager> ().server;
+		}
+	
+	}
 	void SpawnServer(GameObject serverParent, int i, List<GameObject> list){
 
 		GameObject newServer = Instantiate (serverRef);
 		newServer.name = "Server" + i;
 		newServer.transform.SetParent (serverParent.transform);
 		list.Add (newServer);
-
-//		int tempSide = 0;
-//		float tempOffsetX = -(desks[0].transform.localScale.x / 2);
-//		if (list == leftServers)
-//		{
-//			tempSide = 0;
-//		}
-//		else
-//		{
-//			tempSide = 1;
-//			tempOffsetX = -tempOffsetX;
-//		}
-//		
-//		newServer.transform.position = new Vector2(tempOffsetX, desks[i].transform.position.y);
-	
 	}
 	void SetServerPositions(List<GameObject> serverList){
 		float tempOffsetX = -(desks[0].transform.localScale.x / serverOffsetX);

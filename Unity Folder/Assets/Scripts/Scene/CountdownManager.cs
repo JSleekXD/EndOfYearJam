@@ -92,7 +92,7 @@ public class CountdownManager : MonoBehaviour
     public void Reset()
     {
     	sceneManager.EnablePlayerControl(false);
-    	
+		sceneManager.ResetServers ();
     	isCountdownFinished = false;
     	isRoundFinished = false;
 		timer = roundTime;
