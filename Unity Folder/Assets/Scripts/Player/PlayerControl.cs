@@ -164,25 +164,28 @@ public class PlayerControl : MonoBehaviour
 
 				ResetBuildTimer();
 		}
+		if (Input.GetKeyUp (ActionBuildFirewall)) {
+			playerComputers [playerMovement.CurrentLane].transform.Find ("Arrow").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
+		}
     }
 
 	void ChangeComputerFirewallFill(int currentLane){
 		CheckFirewallsInLane ();
 		if (stopDeterminingFill == false) {
 			//Debug.Log ("CALLED");
-			playerComputers [currentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
-			if(gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound1 == true || gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound2 == true){
-				audioManager.StopFirewallBuildingSound();
-			}else{
-				audioManager.PlayFirewallBuildingSound ();
-			}
+			playerComputers [currentLane].transform.Find ("Arrow").GetComponent<Image> ().fillAmount = (firewallTimer / firewallTimerThreshold);
+//			if(gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound1 == true || gameObject.GetComponent<PlayerBuilding>().stopPlayingBuildingSound2 == true){
+//				audioManager.StopFirewallBuildingSound();
+//			}else{
+//				audioManager.PlayFirewallBuildingSound ();
+//			}
 		} else {
 			audioManager.StopFirewallBuildingSound ();
 		}
 	}
 
 	void CheckFirewallsInLane(){
-		if (GetComponent<PlayerBuilding> ().FirewallsInLane (GetComponent<PlayerMovement> ().CurrentLane) == GetComponent<PlayerBuilding> ().MAX_FIREWALLS_PER_LANE) {
+		if (GetComponent<PlayerBuilding> ().FirewallsInLane (GetComponent<PlayerMovement> ().CurrentLane) == GetComponent<PlayerBuilding> ().MAX_FIREWALLS_PER_LANE || GetComponent<PlayerBuilding>().currentFirewalls == GetComponent<PlayerBuilding>().maxFirewalls  ) {
 			playerComputers [GetComponent<PlayerMovement> ().CurrentLane].transform.Find ("ComputerScreenFirewall").GetComponent<Image> ().fillAmount = 1;
 			stopDeterminingFill = true;
 			audioManager.StopFirewallBuildingSound ();
