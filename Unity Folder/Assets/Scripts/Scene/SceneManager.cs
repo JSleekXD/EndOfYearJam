@@ -361,6 +361,7 @@ public class SceneManager : MonoBehaviour
 			roundOverText.GetComponent<Text> ().text = "TIE!";
 			return;
 		} else {
+			//GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().StopBackgroundMusic();
 			GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().PlayRoundOverSound ();
 		}
 		
@@ -390,7 +391,9 @@ public class SceneManager : MonoBehaviour
     
     void DetermineGameOver()
     {
+
     	if (runtimeVariables.player0RoundsWon == 2 || runtimeVariables.player1RoundsWon == 2)
+			//GameObject.FindGameObjectWithTag ("AUDIOMANAGER").GetComponent<AudioManager> ().StopBackgroundMusic();
 			Application.LoadLevel("EndScene");
     }
     
