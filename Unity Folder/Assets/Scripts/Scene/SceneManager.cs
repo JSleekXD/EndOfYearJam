@@ -119,7 +119,7 @@ public class SceneManager : MonoBehaviour
 		newStation.transform.SetParent(stationParent.transform);
 		newStation.transform.localEulerAngles = new Vector3(0, 0, rotationZ);
 		
-		float tempOffsetX = 1.35f;
+		float tempOffsetX = 1.2f;
 		if (side == 1)
 			tempOffsetX = -tempOffsetX;
 			
@@ -154,7 +154,7 @@ public class SceneManager : MonoBehaviour
 
 	void SpawnPlayers()
 	{
-		float offsetX = -((desks[0].transform.localScale.x / 2) + 1.35f);
+		float offsetX = -((desks[0].transform.localScale.x / 2) + 1.2f);
 		
 		for (int i = 0; i < numberOfPlayers; ++i)
 		{
